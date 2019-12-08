@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="companionsheet_notes">
+	<margins control="0,0,0,2" />
+		<sheetdata>
+		<frame_char name="raceframe">
+				<bounds>0,0,-1,45</bounds>
+		</frame_char>
+			<linkfield name="racelink">
+				<anchored to="raceframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="race" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="race">
+				<anchored to="raceframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="racelink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_race</labelres>
+				<readonly />
+			</string_labeled>
+					
+			<frame_char name="detailframe">
+				<bounds>0,50,-1,45</bounds>
+			</frame_char>
+			<string_labeled name="size">
+			<anchored to="detailframe" position="insidetopleft" offset="15,10" width="75" height="20" />
+				<labelres>comp_label_size</labelres>
+				<readonly />
+			</string_labeled>			
+			<string_labeled name="type">
+			<anchored to="size" position="righthigh" offset="10,0" width="132" height="20" />
+				<labelres>comp_label_type</labelres>
+				<readonly />
+			</string_labeled>
+			<string_labeled name="subtype">
+			<anchored to="type" position="righthigh" offset="10,0" width="122" height="20" />
+				<labelres>comp_label_subtype</labelres>
+				<readonly />
+			</string_labeled>
+			<frame_char name="appearanceframe">
+				<bounds>0,90,-1,190</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="appearanceframe" />
+				<static textres="char_label_appearance" />
+			</label_frametop>
+			<stringu name="appearance">
+				<anchored to="appearanceframe">
+					<top offset="30" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</stringu>
+			<scrollbar>
+				<anchored to="appearance" />
+				<target>appearance</target>
+			</scrollbar>			
+			
+			<frame_char name="notesframe">
+				<bounds>0,285,-1,-2</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="notesframe" />
+				<static textres="char_label_notes" />
+			</label_frametop>
+			<stringu name="notes">
+				<anchored to="notesframe">
+					<top offset="30" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</stringu>
+			<scrollbar>
+				<anchored to="notes" />
+				<target>notes</target>
+			</scrollbar>
+			
+		</sheetdata>
+	</windowclass>
+</root>

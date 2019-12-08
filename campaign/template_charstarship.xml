@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="charstarship_shieldnumber">
+		<simplenumber>
+			<default>0</default>
+			<font>charstarship-sheetnumber-large</font>
+			<center />
+		</simplenumber>
+	</template>
+	
+	<template name="charstarship_critdamageradioh" >
+		<genericcontrol>
+			<stateicons>
+				<on>button_check_selected</on>
+				<off>button_check_unselected</off>
+			</stateicons>
+			<parameters>
+				<optionwidth>30</optionwidth>
+				<labelsres>charstarship_critdamage_g|charstarship_critdamage_m|charstarship_critdamage_w</labelsres>
+				<values>g|m|w</values>
+				<defaultindex>0</defaultindex>
+			</parameters>
+			<script file="campaign/scripts/charstarship_critdamageradioh.lua" />
+		</genericcontrol>
+	</template>
+	<template name="charstarship_critdamageradiov" >
+		<genericcontrol>
+			<stateicons>
+				<on>button_check_selected</on>
+				<off>button_check_unselected</off>
+			</stateicons>
+			<parameters>
+				<optionheight>25</optionheight>
+				<labelsres>charstarship_critdamage_g|charstarship_critdamage_m|charstarship_critdamage_w</labelsres>
+				<values>g|m|w</values>
+				<defaultindex>0</defaultindex>
+			</parameters>
+			<script file="campaign/scripts/charstarship_critdamageradiov.lua" />
+		</genericcontrol>
+	</template>
+	
+	<template name="charstarship_cargonumber">
+		<basicnumber>
+			<nodrag />
+			<hideonvalue>0</hideonvalue>
+			<min>0</min>
+		</basicnumber>
+	</template>
+	<template name="charstarship_number">
+		<basicnumber>
+			<nodrag />
+			<min>0</min>
+			<font>charstarship-sheet</font>
+		</basicnumber>
+	</template>
+	<template name="charstarship_numbers">
+		<basicnumber>
+			<anchored width="20" height="20">
+				<top />
+				<left />
+			</anchored>
+			<nodrag />
+			<font>charstarship-sheet</font>
+			<displaysign />
+		</basicnumber>
+	</template>
+	<template name="charstarship_numbercs">
+		<numberc>
+			<anchored width="20" height="20">
+				<top />
+				<left />
+			</anchored>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<nodrag />
+			<readonly/>
+			<displaysign />
+			<font>charstarship-sheet</font>
+		</numberc>
+	</template>
+	<template name="charstarship_numbercs_crosslinked">
+		<charstarship_numbercs>
+			<script file="common/scripts/number_crosslink.lua" />
+		</charstarship_numbercs>
+	</template>
+	<template name="charstarship_numberc">
+		<numberc>
+			<anchored width="20" height="20">
+				<top />
+				<left />
+			</anchored>
+			<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+			<nodrag />
+			<readonly/>
+			<font>charstarship-sheet</font>
+		</numberc>
+	</template>
+	
+	<template name="charstarship_string">
+		<simplestring>
+			<nodrop />
+			<font>sheettext</font>
+		</simplestring>
+	</template>	
+	<template name="charstarship_damagestring">
+		<simplestring>
+			<anchored width="20" height="20">
+				<top />
+				<left />
+			</anchored>
+			<nodrop />
+			<center />
+			<font>sheettext</font>
+		</simplestring>
+	</template>	
+	<template name="charstarship_stringc">
+		<simplestringc>
+			<anchored width="20" height="20">
+				<top />
+				<left />
+			</anchored>
+			<nodrop />
+			<font>sheettext</font>
+		</simplestringc>
+	</template>	
+	<template name="charstarship_string_listitem">
+		<string_textlistitem>
+			<nodrop />
+			<font>sheettext</font>
+		</string_textlistitem>
+	</template>	
+	<template name="charstarship_string_crosslinked">
+		<stringu>
+			<frame name="fielddark" offset="7,5,7,5" />
+			<font>charstarship-sheet</font>
+			<readonly />
+			<script file="common/scripts/string_crosslink.lua" />
+		</stringu>
+	</template>
+	<template name="charstarship_string_labeled">
+		<stringfield>
+			<font>sheettext</font>
+			<lineoffset default="on">1</lineoffset>
+			<script>
+				labelwidget = nil;
+			
+				function onInit()
+					if labelres then
+						labelwidget = addTextWidget("charstarship-sheetinline", string.upper(Interface.getString(labelres[1])));
+					else
+						labelwidget = addTextWidget("charstarship-sheetinline", string.upper(label[1]));
+					end
+					if labelwidget then
+						local w,h = labelwidget.getSize();
+						labelwidget.setPosition("bottomleft", w/2, h/2-4);
+					end
+				end
+			</script>
+		</stringfield>
+	</template>
+	<template name="charstarship_label">
+		<label>
+			<anchored height="20" width="70">
+				<top />
+			</anchored>	
+			<font>charstarship-sheetlabel</font>
+		</label>
+	</template>
+	<template name="charstarship_label_fieldtop">
+		<stringcontrol>
+			<anchored position="above" offset="3,1" />
+			<font>charstarship-sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+	<template name="charstarship_label_fieldleft">
+		<stringcontrol>
+			<anchored position="left" offset="10,1" />
+			<font>charstarship-sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+	<template name="charstarship_label_fieldright">
+		<stringcontrol>
+			<anchored position="right" offset="10,1" />
+			<font>charstarship-sheetlabelmini</font>
+			<center />
+		</stringcontrol>
+	</template>
+	<template name="charstarship_label_frametop">
+		<label>
+			<anchored position="insidetop" offset="0,10" />
+			<center />
+			<font>charstarship-sheetlabel</font>
+		</label>
+	</template>
+	
+	<template name="button_charstarship_cargoonboard">
+		<buttonfield>
+			<state icon="button_charstarship_cargonone" tooltipres="charstarship_cargonone" />
+			<state icon="button_charstarship_cargocarried" tooltipres="charstarship_cargocarried" />
+			<default>1</default>
+		</buttonfield>
+	</template>
+	<template name="button_charstarship_action">
+		<button_roll>
+			<anchored height="20" width="20">
+				<top />
+				<left />
+			</anchored>
+			<script file="campaign/scripts/charstarship_actionroll.lua" />
+		</button_roll>
+	</template>
+	<template name="button_charstarship_showhideactions">
+		<button_icon>
+			<script>
+				function onInit()
+					if window.getDatabaseNode().isOwner() or User.isHost() then
+						setVisible(true);
+					end
+					
+				end
+				
+				function onButtonPress()
+					if target and target[1] then					
+						local aTargets = StringManager.split(target[1], "|");
+						local bVisible = window[aTargets[1]].isVisible();
+						window[aTargets[1] .. "frame"].setVisible(not bVisible);
+						window[aTargets[1]].setVisible(not bVisible);
+						window["label1"].setVisible(not bVisible);
+						window["label2"].setVisible(not bVisible);
+						window["label3"].setVisible(not bVisible);
+						window["label4"].setVisible(not bVisible);
+						window["label5"].setVisible(not bVisible);	
+
+						window[aTargets[2] .. "frame"].setVisible(not bVisible);
+						window[aTargets[2]].setVisible(not bVisible);
+						window["label6"].setVisible(not bVisible);
+						window["label7"].setVisible(not bVisible);
+						window["label8"].setVisible(not bVisible);
+						window["label9"].setVisible(not bVisible);
+					end
+				end
+			</script>
+		</button_icon>
+	</template>	
+	<template name="button_charstarshipskillcycler">
+		<button_stringcycler>
+			<anchored height="20" width="120">
+				<top />
+				<left />
+			</anchored>	
+			<font>charstarship-sheet</font>
+			<tooltip>
+				<textres>charstarship_tooltip_crew_skill</textres>
+			</tooltip>
+		</button_stringcycler>
+	</template>
+	<template name="button_charstarshipweaponcycler">
+		<button_stringcycler>
+			<anchored height="20" width="120">
+				<top />
+				<left />
+			</anchored>	
+			<font>charstarship-sheet</font>
+			<target></target>
+			<tooltip>
+				<textres>charstarship_tooltip_crew_weapon</textres>
+			</tooltip>
+			<script>
+				function onValueChanged()
+					if target and target[1] then
+						window[target[1]].setValue(CharStarshipManager.getWeaponDamage(window.windowlist.window.windowlist.window.getDatabaseNode(), getStringValue()));
+					end
+				end
+			</script>
+		</button_stringcycler>
+		
+	</template>
+	<template name="button_charstarshipcheckbox">
+		<buttonfield>
+			<state icon="button_charstarshipcheckon" />
+			<state icon="button_charstarshipcheckoff" />
+			<tooltip>
+				<textres>charstarship_tooltip_systemstatus</textres>
+			</tooltip>
+			<script>
+				function onButtonPress()
+					local sMsg = Interface.getString("charstarship_message_notimplemented");
+					ChatManager.SystemMessage(sMsg, true);					
+				end
+			</script>
+		</buttonfield>
+	</template>
+		
+	<template name="link_charstarshipcrewentry">
+		<linkfield>
+			<anchored width="20" height="20" />
+			<class>charsheet</class>
+			<selfonempty />
+			<readonly />
+			<script>
+				function onValueChanged()
+					window.onLinkChanged();
+				end
+			</script>
+		</linkfield>
+	</template>
+</root>

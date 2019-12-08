@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charstarship_weapons">
+		<sheetdata>
+		
+			<frame_char name="mountsframe">
+				<bounds>15,0,-25,-25</bounds>
+			</frame_char>
+			<charstarship_label>
+				<anchored  height="20" width="200">
+					<top parent="mountsframe" anchor="top" relation="relative" offset="10" />
+					<left parent="mountsframe" anchor="left" relation="relative" offset="15" />
+				</anchored>
+				<static textres="charstarship_label_mounts" />
+				<color>#808080</color>
+			</charstarship_label>
+			<button_iedit name="mounts_iedit">
+				<anchored to="mountsframe" position="righthigh" offset="-30,10" />
+				<target>mounts</target>
+			</button_iedit>
+			<button_iadd name="mounts_iadd">
+				<anchored to="mounts_iedit" position="lefthigh" offset="5,0" />
+				<target>mounts</target>
+			</button_iadd>
+						
+			<charstarship_label name="label_special">
+				<anchored  height="20" width="100">
+					<top parent="mountsframe" anchor="top" relation="relative" offset="30" />
+					<left parent="mountsframe" anchor="right" relation="relative" offset="-145" />
+				</anchored>
+				<static textres="charstarship_label_special" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_damage">
+				<anchored  height="20" width="100">
+					<top parent="label_special" anchor="top" relation="relative" offset="0" />
+					<left parent="label_special" anchor="left" relation="relative" offset="-115" />
+				</anchored>
+				<static textres="charstarship_label_damage" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_range">
+				<anchored  height="20" width="100">
+					<top parent="label_damage" anchor="top" relation="relative" offset="0" />
+					<left parent="label_damage" anchor="left" relation="relative" offset="-110" />
+				</anchored>
+				<static textres="charstarship_label_range" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_category">
+				<anchored  height="20" width="80">
+					<top parent="label_range" anchor="top" relation="relative" offset="0" />
+					<left parent="label_range" anchor="left" relation="relative" offset="-75" />
+				</anchored>
+				<static textres="charstarship_label_category" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_weaponname">
+				<anchored  height="20" width="250">
+					<top parent="label_category" anchor="top" relation="relative" offset="0" />
+					<left parent="label_category" anchor="left" relation="relative" offset="-260" />
+				</anchored>
+				<static textres="charstarship_label_weaponname" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_type">
+				<anchored  height="20" width="50">
+					<top parent="label_weaponname" anchor="top" relation="relative" offset="0" />
+					<left parent="label_weaponname" anchor="left" relation="relative" offset="-45" />
+				</anchored>
+				<static textres="charstarship_label_type" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="label_arc">
+				<anchored  height="20" width="60">
+					<top parent="label_type" anchor="top" relation="relative" offset="0" />
+					<left parent="label_type" anchor="left" relation="relative" offset="-60" />
+				</anchored>
+				<static textres="charstarship_label_arc" />
+				<color>#808080</color>
+			</charstarship_label>
+						
+			<list_text name="mounts" >
+				<anchored>
+					<top parent="mountsframe" anchor="top" relation="relative" offset="50"/>
+					<left parent="mountsframe" anchor="left" relation="relative" offset="10"/>
+					<right parent="mountsframe" anchor="right" relation="relative" offset="-10"/>
+					<bottom parent="mountsframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.mounts</datasource>
+				<class>charstarship_mountlistentry</class>
+				<sortby><control>name</control></sortby>
+				<newfocus>name</newfocus>
+				<allowcreate />
+				<allowdelete />
+				<script>
+					function onDrop(x, y, draginfo)
+						local sDragType = draginfo.getType();
+						if sDragType == "string" then
+							local w = addEntry(true);
+							w.name.setValue(draginfo.getStringData());
+							return true;
+						end
+					end
+				</script>	
+			</list_text>
+			<scrollbar>
+				<target>forwardmounts</target>
+			</scrollbar>
+				
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="charstarship_mountlistentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<hn name="configured" />
+			<anchor_listitem_column_right name="rightanchor" />
+			<link_listitem_column name="shortcut">
+				<class>starshipitem</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+			
+			<charstarship_string name="special">
+				<anchored height="20" width="100">
+					<top parent="" anchor="top" relation="relative" offset="0" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<empty textres="charstarship_empty_special" />
+			</charstarship_string>
+			<charstarship_string name="damage">
+				<anchored height="20" width="100">
+					<top parent="special" anchor="top" relation="relative" offset="0" />
+					<right parent="special" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<empty textres="charstarship_empty_damage" />
+			</charstarship_string>
+			<charstarship_string name="range">
+				<anchored height="20" width="100">
+					<top parent="damage" anchor="top" relation="relative" offset="0" />
+					<right parent="damage" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<empty textres="charstarship_empty_range" />
+			</charstarship_string>
+			<button_stringcycler name="category">
+				<anchored width="70" height="20">
+					<top parent="range" anchor="top" relation="relative" offset="0" />
+					<right parent="range" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<parameters>
+					<defaultlabel>-</defaultlabel>
+					<labels>-|Direct-Fire|Tracking</labels>
+					<values>-|direct-fire|tracking</values>
+				</parameters>
+				<font>charstarship-sheet</font>
+			</button_stringcycler>
+			<charstarship_string name="name" >
+				<anchored height="20" width="250">
+					<top parent="category" anchor="top" relation="relative" offset="0" />
+					<right parent="category" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<empty textres="charstarship_empty_mount" />
+			</charstarship_string>
+			<button_stringcycler name="type">
+				<anchored width="50" height="20">
+					<top parent="name" anchor="top" relation="relative" offset="0" />
+					<right parent="name" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<parameters>
+					<defaultlabel>Light</defaultlabel>
+					<labels>Light|Heavy|Capital</labels>
+					<values>light|heavy|capital</values>
+				</parameters>
+				<font>charstarship-sheet</font>
+			</button_stringcycler>
+			<button_stringcycler name="arc">
+				<anchored width="60" height="20">
+					<top parent="type" anchor="top" relation="relative" offset="0" />
+					<right parent="type" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<parameters>
+					<defaultlabel>Forward</defaultlabel>
+					<labels>Forward|Turret|Starboard|Aft|Port</labels>
+					<values>forward|turret|starboard|aft|port</values>
+				</parameters>
+				<font>charstarship-sheet</font>
+			</button_stringcycler>	
+			
+		</sheetdata>
+	</windowclass>
+	
+</root>

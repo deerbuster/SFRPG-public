@@ -1,0 +1,65 @@
+-- 
+-- Please see the license.html file included with this distribution for 
+-- attribution and copyright information.
+--
+
+function onInit()
+	TypeChanged();
+	onLockChanged();
+	
+	sTitle = "CREATURE";
+	if (npctype.getStringValue() == "Trap") then
+		sTitle = "TRAP";
+	end
+	
+	local node = getDatabaseNode();
+	if node.getChild("size") ~= nil and node.getChild("size").getValue() ~= "" then
+		if node.getChild("type") ~= nil and node.getChild("type").getValue() ~= "" then
+			if node.getChild("subtype") ~= nil and node.getChild("subtype").getValue() ~= "" then
+				sTitle = string.upper(node.getChild("size").getValue() .. " " .. node.getChild("type").getValue() .. " (" .. getDatabaseNode().getChild("subtype").getValue() .. ")" );
+			else
+				sTitle = string.upper(node.getChild("size").getValue() .. " " .. node.getChild("type").getValue());
+			end
+		else		
+			sTitle = string.upper(getDatabaseNode().getChild("size").getValue() .. " " .. sTitle);
+		end
+	end
+	
+	if header.subwindow then
+		header.subwindow.update(sTitle);
+	end
+end
+
+function TypeChanged()
+	local sType = DB.getValue(getDatabaseNode(), "npctype", "");
+	
+	if sType == "Trap" then
+		tabs.setTab(1, "main_trap", "tab_main");
+	else
+		tabs.setTab(1, "main_creature", "tab_main");
+	end
+end
+
+function onLockChanged()
+	StateChanged();
+end
+
+function StateChanged()
+	if header.subwindow then
+		header.subwindow.update();
+	end
+	if main_trap.subwindow then
+		main_trap.subwindow.update();
+	end
+	if main_creature.subwindow then
+		main_creature.subwindow.update();
+	end
+	if spells.subwindow then
+		spells.subwindow.update();
+	end
+
+	local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+	
+	npctype.setReadOnly(bReadOnly);
+	text.setReadOnly(bReadOnly);
+end

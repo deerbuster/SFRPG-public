@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="vehicle">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="400" height="500" />
+		</placement>
+		<sharable />
+		<sizelimits>
+			<minimum width="350" height="350" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if other.subwindow then
+					other.subwindow.update();
+				end
+				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				if other.subwindow then
+					other.subwindow.text.setReadOnly(bReadOnly);
+				end
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>vehicle_header</class>
+			</sub_record_header>
+
+			<frame_record_content_tabbed name="contentframe" />
+			
+			<subwindow_record name="main">
+				<class>vehicle_stats</class>
+			</subwindow_record>
+			<subwindow_record name="other">
+				<class>vehicle_other</class>
+			</subwindow_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>other</target>
+			</scrollbar_record>
+			
+			<tabs_recordsheet>
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_other</icon>
+					<subwindow>other</subwindow>
+				</tab>
+			</tabs_recordsheet>
+			
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="vehicle_header">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+				token.setReadOnly(bReadOnly);
+				recordtype.setVisible(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>vehicle</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<button_activateid>
+				<anchored to="rightanchor" width="23" height="22">
+					<top offset="-2" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_activateid>
+			<tokenfield name="token">
+				<anchored to="rightanchor" width="25" height="25">
+					<top offset="-2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-3" />
+				</anchored>
+				<empty>token_empty</empty>
+				<script>
+					function onDoubleClick(x, y)
+						CombatManager.openMap(window.getDatabaseNode());
+					end
+				</script>
+			</tokenfield>
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_vehcile" />
+			</string_record_name>
+			<label_recordtype name="recordtype">
+				<static textres="record_label_vehicle" />
+			</label_recordtype>	
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="vehicle_stats">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				attacks.update(bReadOnly);
+				abilities.update(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<label_column name="level_label">
+				<static textres="vehicle_label_level" />
+			</label_column>
+			<number_columnh name="level" />
+			
+			<label_column name="price_label">
+				<static textres="vehicle_label_price" />
+			</label_column>
+			<string_columnh name="price" />
+			
+			<label_column name="size_label">
+				<static textres="vehicle_label_size" />
+			</label_column>
+			<string_columnh name="size" />
+
+			<label_column name="speed_label">
+				<static textres="vehicle_label_speed" />
+			</label_column>
+			<string_columnh name="speed" />
+
+			<label_column name="eac_label">
+				<static textres="vehicle_label_eac" />
+			</label_column>
+			<number_columnh name="eac" />
+			
+			<label_column name="kac_label">
+				<static textres="vehicle_label_kac" />
+			</label_column>
+			<number_columnh name="kac" />
+			
+			<label_column name="cover_label">
+				<static textres="vehicle_label_cover" />
+			</label_column>
+			<string_columnh name="cover" />
+			
+			<label_column name="hp_label">
+				<static textres="vehicle_label_hp" />
+			</label_column>
+			<number_columnh name="hp" />
+			
+			<label_column name="hpbroken_label">
+				<static textres="vehicle_label_hpbroken" />
+			</label_column>
+			<number_columnh name="hpbroken" />
+
+			<label_column name="hardness_label">
+				<static textres="vehicle_label_hardness" />
+			</label_column>
+			<number_columnh name="hardness" />
+			
+			<label_column name="systems_label">
+				<static textres="vehicle_label_systems" />
+			</label_column>
+			<string_columnh name="systems" />			
+			
+			<label_column name="modifiers_label">
+				<static textres="vehicle_label_modifiers" />
+			</label_column>
+			<string_columnh name="modifiers" />
+			
+			<label_column name="passengers_label">
+				<static textres="vehicle_label_passengers" />
+			</label_column>
+			<number_columnh name="passengers" />
+			
+			
+			<header_column name="attacks_header">
+				<anchor offset="0,30" />
+				<static textres="vehicle_header_attacks"/>
+				<center />
+			</header_column>
+			<button_iedit name="attacks_iedit">
+				<anchored to="attacks_header" position="righthigh" offset="-20,0" />
+				<target>attacks</target>
+			</button_iedit>
+			<button_iadd name="attacks_iadd">
+				<anchored to="attacks_iedit" position="lefthigh" offset="5,0" />
+				<target>attacks</target>
+			</button_iadd>
+			<list_column name="attacks">
+				<datasource>.attacks</datasource>
+				<class>vehicle_attacklistentry</class>
+			</list_column>
+		
+			<header_column name="abilities_header">
+				<anchor offset="0,30" />
+				<static textres="vehicle_header_abilities"/>
+				<center />
+			</header_column>
+			<button_iedit name="abilities_iedit">
+				<anchored to="abilities_header" position="righthigh" offset="-20,0" />
+				<target>abilities</target>
+			</button_iedit>
+			<button_iadd name="abilities_iadd">
+				<anchored to="abilities_iedit" position="lefthigh" offset="5,0" />
+				<target>abilities</target>
+			</button_iadd>
+			<list_column name="abilities">
+				<datasource>.specialabilities</datasource>
+				<class>vehicle_abilitylistentry</class>
+			</list_column>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_other">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				text.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<ft_columnh name="text">
+				<footer>footer_wide</footer>
+			</ft_columnh>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicle_attacklistentry">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<link_listitem_column name="shortcut">
+				<class>vehicleattack</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+
+			<string_listitem_column_name name="name">
+				<empty textres="library_recordtype_empty_vehicleattack" />
+			</string_listitem_column_name>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicleattack">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				text.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>vehicleattack_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe"/>
+			<ft_record name="text">
+				<anchored to="contentframe" position="over" />
+				<footer>footer_wide</footer>
+			</ft_record>
+			<scrollbar>
+				<anchored to="text" />
+				<target>text</target>
+			</scrollbar>
+			
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicleattack_header">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>vehicleattack</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_vehicleattack" />
+			</string_record_name>
+			<label_recordtype name="recordtype">
+				<static textres="record_label_vehicleattack" />
+			</label_recordtype>	
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="vehicle_abilitylistentry">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<link_listitem_column name="shortcut">
+				<class>vehicleability</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+
+			<string_listitem_column_name name="name">
+				<empty textres="library_recordtype_empty_vehicleability" />
+			</string_listitem_column_name>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicleability">
+		<frame>recordsheet</frame>
+		<placement>
+			<size width="350" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				text.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>vehicleability_header</class>
+			</sub_record_header>
+
+			<frame_record_content name="contentframe" />
+			<ft_record name="text">
+				<anchored to="contentframe" position="over" />
+				<footer>footer_wide</footer>
+			</ft_record>
+			<scrollbar>
+				<anchored to="text" />
+				<target>text</target>
+			</scrollbar>
+			
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="vehicleability_header">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>vehicleability</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_vehicleability" />
+			</string_record_name>
+			<label_recordtype name="recordtype">
+				<static textres="record_label_vehicleability" />
+			</label_recordtype>	
+		</sheetdata>
+	</windowclass>
+
+</root>

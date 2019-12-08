@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="modifiers">
+		<frame>utilitybox3</frame>
+		<placement>
+			<size width="500" height="350" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+			<minimum width="500" height="350" />
+		</sizelimits>
+		<playercontrol />
+		<nodelete />
+		<sheetdata>
+			<windowtitlebar>
+				<resource>library_recordtype_label_modifier</resource>
+			</windowtitlebar>
+
+			<!-- MODIFIER KEYS - ATTACKER -->
+			<label>
+				<bounds>30,45,175,20</bounds>
+				<static textres="modifier_label_attack" />
+				<color>FFFFFF</color>
+				<center />
+			</label>
+			<button_modifierkey name="ATT_TCH">
+				<bounds>35,70,75,20</bounds>
+				<textres>modifier_label_atktouch</textres>
+			</button_modifierkey>
+			<button_modifierkey name="ATT_FF">
+				<bounds>35,105,75,20</bounds>
+				<textres>modifier_label_atkff</textres>
+			</button_modifierkey>
+			<button_modifierkey name="ATT_OPP">
+				<bounds>35,140,75,20</bounds>
+				<textres>modifier_label_atkopp</textres>
+			</button_modifierkey>
+
+			<!-- MODIFIER KEYS - DEFENDER -->
+			<button_modifierkey name="DEF_PCOVER">
+				<bounds>125,70,75,20</bounds>
+				<textres>modifier_label_atkpcover</textres>
+				<script>
+					function onValueChanged()
+						super.onValueChanged();
+						
+						if getValue() == 1 then
+							window["DEF_SCOVER"].setValue(0);
+							window["DEF_COVER"].setValue(0);
+						end
+					end
+				</script>
+			</button_modifierkey>
+			<button_modifierkey name="DEF_COVER">
+				<bounds>125,105,75,20</bounds>
+				<textres>modifier_label_atkcover</textres>
+				<script>
+					function onValueChanged()
+						super.onValueChanged();
+						
+						if getValue() == 1 then
+							window["DEF_PCOVER"].setValue(0);
+							window["DEF_SCOVER"].setValue(0);
+						end
+					end
+				</script>
+			</button_modifierkey>
+			<button_modifierkey name="DEF_SCOVER">
+				<bounds>125,140,75,20</bounds>
+				<textres>modifier_label_atkscover</textres>
+				<script>
+					function onValueChanged()
+						super.onValueChanged();
+						
+						if getValue() == 1 then
+							window["DEF_PCOVER"].setValue(0);
+							window["DEF_COVER"].setValue(0);
+						end
+					end
+				</script>
+			</button_modifierkey>
+			<button_modifierkey name="DEF_CONC">
+				<bounds>125,175,75,20</bounds>
+				<textres>modifier_label_atkconc</textres>
+				<script>
+					function onValueChanged()
+						super.onValueChanged();
+						
+						if getValue() == 1 then
+							window["DEF_TCONC"].setValue(0);
+						end
+					end
+				</script>
+			</button_modifierkey>
+			<button_modifierkey name="DEF_TCONC">
+				<bounds>125,210,75,20</bounds>
+				<textres>modifier_label_atktconc</textres>
+				<script>
+					function onValueChanged()
+						super.onValueChanged();
+						
+						if getValue() == 1 then
+							window["DEF_CONC"].setValue(0);
+						end
+					end
+				</script>
+			</button_modifierkey>
+
+			<!-- MODIFIER KEYS - OTHER -->
+			<label>
+				<bounds>30,240,175,20</bounds>
+				<static textres="modifier_label_damage" />
+				<color>FFFFFF</color>
+				<center />
+			</label>
+			<button_modifierkey name="DMG_CRIT">
+				<bounds>35,265,75,20</bounds>
+				<textres>modifier_label_dmgcrit</textres>
+			</button_modifierkey>
+			<button_modifierkey name="DMG_HALF">
+				<bounds>125,265,75,20</bounds>
+				<textres>modifier_label_dmghalf</textres>
+			</button_modifierkey>
+
+			<!-- MODIFIER LIST -->
+			<list_utility name="list">
+				<bounds>227,55,-40,-80</bounds>
+				<frame name="groupbox" offset="15,15,20,15" />
+				<datasource>.</datasource>
+				<class>modifiersmall</class>
+				<script>
+					function onDrop(x, y, draginfo)
+						if User.isHost() then
+							if draginfo.getType() == "number" then
+								local w = addEntry(true);
+								if w then
+									w.label.setValue(draginfo.getDescription());
+									w.bonus.setValue(draginfo.getNumberData());
+								end
+								return true;
+							end
+						end
+					end
+				</script>
+			</list_utility>
+			<scrollbar_list />
+
+			<anchor_campaign2 />
+			<button_iedit_campaign />
+			<button_iadd_utility />
+			<filter_utility />
+
+			<resize_utilitybox3 />
+			<helper_modifiers />
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+</root>

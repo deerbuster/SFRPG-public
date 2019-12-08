@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="companionsheet">
+		<frame>charsheet</frame>
+		<placement>
+			<size width="450" height="550" />
+		</placement>
+		<sizelimits>
+			<minimum width="450" height="550" />
+			<dynamic />
+		</sizelimits>
+		<tooltip field="name" />		
+		<softclose />
+		<nodelete />
+		<playercontrol />
+		<script file="campaign/scripts/comp.lua" />
+		<sheetdata>	
+			<token_comp name="token">
+				<bounds>-86,23,40,40</bounds>
+			</token_comp>						
+			<frame_char name="header">
+				<bounds>15,20,225,50</bounds>
+			</frame_char>
+			<string_labeled name="name">
+				<anchored to="header" position="insidetopleft" offset="15,10" width="200" height="20" />
+				<labelres>char_label_name</labelres>
+				<empty textres="library_recordtype_empty_companionname" />
+			</string_labeled>			
+			<!--Level-->
+			<frame_char name="levelframe">
+				<bounds>240,20,90,50</bounds>
+			</frame_char>
+			<simplenumber name="level">
+				<anchored to="levelframe" position="insidetopleft" offset="25,18" width="40" height="20" />	
+				<frame name="fieldlight" offset="7,5,7,5" />										
+				<script>					
+					function onEnter()
+						setLevel()
+					end
+
+                    function onWheel(notches)
+						if Input.isControlPressed() then
+							return false;
+						else
+							setLevel(notches);
+						end
+                    end
+
+					function setLevel(notches)
+						local node = getDatabaseNode().getParent();
+                        local nLevel = getValue();
+						if notches then
+							nLevel = nLevel + notches;
+						end
+						bLevelCheck,nLevelNew = CharManager.onCompLevelCheck(node, nLevel)						
+						if bLevelCheck then	
+							setValue(nLevelNew);
+							CharManager.onCompLevelUpdate(node, nLevelNew);
+						end
+					end
+				</script>
+			</simplenumber>
+			<label_fieldtop>
+				<anchored to="level" />
+				<static>Level</static>
+			</label_fieldtop>
+			<frame_record_content_tabbed name="contentframe">
+				<anchored>
+					<bottom offset="-65" />
+				</anchored>
+			</frame_record_content_tabbed>
+
+			<subwindow_record name="main">
+				<class>companionsheet_main</class>
+			</subwindow_record>
+			<subwindow_record name="inventory">
+				<class>companionsheet_inventory</class>
+			</subwindow_record>
+			<subwindow_record name="notes">
+				<class>companionsheet_notes</class>
+			</subwindow_record>
+			<ft_record name="text">
+				<anchored to="contentframe" position="over" />
+				<invisible />
+			</ft_record>
+
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>inventory</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>notes</target>
+			</scrollbar_record>
+			<scrollbar_record>
+				<target>text</target>
+			</scrollbar_record>
+
+			<tabs_recordsheet>
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_inventory</icon>
+					<subwindow>inventory</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_notes</icon>
+					<subwindow>notes</subwindow>
+				</tab>
+			</tabs_recordsheet>
+			
+			<frame_record_lower_companion name="controlframe" />
+			<linkfield name="ownerlink">
+				<anchored to="controlframe" position="insidetopright" offset="15,10" width="20" height="20" />
+				<allowdelete />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end					
+				</script>
+				<closetoggle />
+			</linkfield>
+			<stringu name="owner">
+				<anchored to="controlframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="ownerlink" anchor="left" offset="-5" />
+				</anchored>				
+				<readonly />				              
+			</stringu>
+			<label name="owner_label">
+				<anchored to="controlframe" position="insidetopleft" offset="-50,5" height="30" />			
+				<static>Owner</static>			
+			</label>
+			<resize_charsheet />
+			<close_charsheet />
+		</sheetdata>
+	</windowclass>	
+</root>

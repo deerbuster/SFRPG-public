@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charstarshipsheet">
+		<frame>charsheet</frame>
+		<placement>
+			<size width="900" height="650" />
+		</placement>
+		<sizelimits>
+            <minimum width="900" height="650" />
+        </sizelimits>
+		<nodelete />
+		<sharable />
+		<playercontrol />
+		<tooltip field="name" />
+		<script file="campaign/scripts/charstarship.lua" />
+		<sheetdata>
+			<token_char name="token">
+				<bounds>-75,25,40,40</bounds>
+			</token_char>
+			
+			<frame_char name="overviewframe">
+				<bounds>15,25,-320,45</bounds>
+			</frame_char>
+			<charstarship_string_labeled name="name">
+				<anchored to="overviewframe" position="insidetop" offset="-15,10" height="20" />
+				<labelres>charstarship_label_name</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_name</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="tierframe">
+				<bounds>-320,25,100,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="tier">
+				<anchored to="tierframe" position="insidetopleft" offset="15,6" width="60" height="34" />
+				<description textres="tier" />
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<min>0</min>
+				<font>charstarship-sheetnumber-large</font>				
+				<tooltip>
+					<textres>charstarship_tooltip_tier</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="tier" />
+				<static textres="charstarship_label_tier" />
+			</charstarship_label_fieldtop>
+			<frame_char name="buildframe">
+				<bounds>-250,25,170,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="bpmax" source="build.bpmax">
+				<anchored to="buildframe" position="insidetopleft" offset="15,6" width="60" height="34" />
+				<description textres="charstarship_label_bpmax" />
+				<frame mergerule="replace" name="fielddark" offset="7,5,7,5" />
+				<min>0</min>
+				<delaykeyupdate />
+				<readonly />
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_bpmax</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="bpmax" />
+				<static textres="charstarship_label_bpmax" />
+			</charstarship_label_fieldtop>
+			<number_dropadd name="bpcurrent" source="build.bpcurrent">
+				<anchored to="buildframe" position="insidetopleft" offset="85,6" width="60" height="34" />
+				<description textres="charstarship_label_bpcurrent" />
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<min>0</min>
+				<script>
+					function onInit()
+						updateColor();
+					end
+					
+					function onValueChanged()
+						updateColor();
+					end
+					
+					function updateColor()
+						if getValue() > window.bpmax.getValue() then
+							setFont("charstarship-sheetnumber-red");
+						else
+							setFont("charstarship-sheetnumber");
+						end
+					end
+				</script>
+				<tooltip>
+					<textres>charstarship_tooltip_bpcurrent</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="bpcurrent" />
+				<static textres="charstarship_label_bpcurrent" />
+			</charstarship_label_fieldtop>
+			<buttoncontrol name="button_buildpoints">
+				<anchored to="buildframe" position="insidetopright" offset="0,10" width="20" height="20" />				
+				<state icon="button_details" pressed="button_details_down" />
+				<tooltip>
+					<textres>charstarship_tooltip_bpsummary</textres>
+				</tooltip>
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charstarship_bpsummary", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
+						
+			<subwindow name="main">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charstarship_main</class>
+			</subwindow>
+			<subwindow name="crew">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charstarship_crew</class>
+				<fastinit />
+			</subwindow>
+			<subwindow name="weapons">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charstarship_weapons</class>
+				<fastinit />
+			</subwindow>
+			<subwindow name="cargo">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charstarship_cargo</class>
+				<fastinit />
+			</subwindow>
+			<subwindow name="notes">
+				<bounds>0,65,-1,-20</bounds>
+				<class>charstarship_notes</class>
+				<fastinit />
+			</subwindow>			
+			<tabs_charsheet>
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_crew</icon>
+					<subwindow>crew</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_weapons</icon>
+					<subwindow>weapons</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_cargo</icon>
+					<subwindow>cargo</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_notes</icon>
+					<subwindow>notes</subwindow>
+				</tab>
+
+				<activate>1</activate>
+			</tabs_charsheet>
+		
+			<close_charsheet />
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="charstarship_bpsummary">
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="450" height="300" />
+		</placement>
+		<sizelimits>
+			<minimum width="450" height="300" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>charstarship_bp_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+			<frame_char name="bpframe">
+				<anchored>
+				<top parent="" anchor="top" relation="relative" offset="40" />
+				<left parent="" anchor="left" relation="relative" offset="10" />
+				<right parent="" anchor="right" relation="relative" offset="-10"/>
+				<bottom parent="" anchor="bottom" relation="relative" offset="-10" />
+			</anchored>
+			</frame_char>			
+	
+			<button_iedit name="bpsummary_iedit">
+				<anchored to="bpframe" position="righthigh" offset="-30,10" />
+				<target>bpsummary</target>
+			</button_iedit>
+			<button_iadd name="bpsummary_iadd">
+				<anchored to="bpsummary_iedit" position="lefthigh" offset="5,0" />
+				<target>bpsummary</target>
+			</button_iadd>
+			<list_text name="bpsummary">
+				<anchored>
+					<top parent="bpframe" anchor="top" relation="relative" offset="30"/>
+					<left parent="bpframe" anchor="left" relation="relative" offset="5"/>
+					<right parent="bpframe" anchor="right" relation="relative" offset="-5"/>
+					<bottom parent="bpframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.build.summary</datasource>
+				<class>charstarship_bpsummary_listentry</class>
+				<sortby><control>entry</control></sortby>
+				<newfocus>entry</newfocus>
+				<allowcreate />
+				<allowdelete />
+			</list_text>
+			<scrollbar>
+				<target>bpsummary</target>
+			</scrollbar>
+			
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charstarship_bpsummary_listentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<button_listitem_column_delete name="idelete" />
+			<hs name="type" />
+			
+			<charstarship_number name="cost">
+				<anchored width="30" height="20">
+					<top offset="2" />
+					<right parent="idelete" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<delaykeyupdate />
+				<tabtarget prev="entry" />
+			</charstarship_number>				
+			<charstarship_string name="entry">
+				<anchored position="insidetopleft" offset="5,2" height="20">
+					<right parent="cost" anchor="left" relation="current" offset="-5" />
+				</anchored>
+			</charstarship_string>
+			
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="charstarship_dialog_newbuild">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="550" height="400" />
+			<nosave />
+		</placement>
+		<script file="campaign/scripts/charstarship_dialog_newbuild.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>charstarship_dialog_newbuild_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<stringcontrol name="message">
+				<anchored to="contentanchor" position="belowleft" offset="0,15">
+					<right offset="-10" />
+					<bottom parent="" offset="-75" />
+				</anchored>
+				<frame offset="10,10,20,10" name="groupbox"/>
+				<multilinespacing>16</multilinespacing>
+				<font>sheetlabel</font>
+				<nodrag />
+				<readonly />
+			</stringcontrol>
+			
+			<button_dialog_ok>
+				<anchored position="insidebottomright" offset="75,25" />
+			</button_dialog_ok>
+			<button_dialog_cancel>
+				<anchored position="insidebottomright" offset="40,25" />
+			</button_dialog_cancel>
+			
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charstarship_dialog_resetbuild">
+		<frame>utilitybox</frame>
+		<placement>
+			<size width="300" height="300" />
+			<nosave />
+		</placement>
+		<script file="campaign/scripts/charstarship_dialog_resetbuild.lua" />
+		<sheetdata>
+			<windowtitlebar name="title">
+				<resource>charstarship_dialog_resetbuild_title</resource>
+			</windowtitlebar>
+			<anchor_title_utilitybox3 name="contentanchor" />
+			
+			<stringcontrol name="message">
+				<anchored to="contentanchor" position="belowleft" offset="0,15">
+					<right offset="-10" />
+					<bottom parent="" offset="-75" />
+				</anchored>
+				<frame offset="10,10,20,10" name="groupbox"/>
+				<multilinespacing>16</multilinespacing>
+				<font>sheetlabel</font>
+				<nodrag />
+				<readonly />
+			</stringcontrol>
+			
+			<button_dialog_ok>
+				<anchored position="insidebottomright" offset="75,25" />
+			</button_dialog_ok>
+			<button_dialog_cancel>
+				<anchored position="insidebottomright" offset="40,25" />
+			</button_dialog_cancel>
+			
+			<close_utilitybox3 />
+		</sheetdata>
+	</windowclass>
+	
+</root>

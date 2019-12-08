@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_inventory">
+	<script file="campaign/scripts/char_inv.lua" />	
+		<sheetdata>
+			<frame_char name="inventoryframe">
+				<bounds>20,0,-29,-170</bounds>
+			</frame_char>
+			<button_aug name="aug">
+				<anchored to="inventoryframe" position="belowleft" offset="10,0" width="40" height="20" />
+			</button_aug>
+			<label name="aug_label">
+				<anchored to="aug" position="right" offset="5,5" width="120"/>				
+				<static>AUGMENTATIONS</static>
+			</label>
+			<label name="count_label">
+				<anchored to="inventoryframe" position="insidetopleft" offset="20,10" width="20" />
+				<center />
+				<static>#</static>
+			</label>
+			<genericcontrol name="rightanchor">
+				<anchored to="inventoryframe" width="0" height="0">
+					<top offset="10" />
+					<right offset="-20" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<genericcontrol name="idelete_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="shortcut_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<disabled />
+			</genericcontrol>
+			<genericcontrol name="carried_header">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<icon>char_inv_carried_header</icon>
+				<tooltip textres="char_tooltip_itemcarried" />
+			</genericcontrol>
+			<label name="weight_label">
+				<anchored to="rightanchor" width="30">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<center />
+				<static textres="char_label_itemweight" />
+				<tooltip textres="char_tooltip_itemweight" />
+			</label>
+			<label name="location_label">
+				<anchored to="rightanchor" width="80">
+					<top />
+					<right anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<center />
+				<static textres="char_label_itemlocation" />
+			</label>
+			<label name="name_label">
+				<anchored to="rightanchor">
+					<top />
+					<left parent="inventoryframe" offset="55" />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<static textres="char_label_itemname" />
+				<center />
+			</label>
+
+			<list_charinv name="inventorylist">
+				<anchored to="inventoryframe">
+					<top offset="40" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+			</list_charinv>
+			<scrollbar>
+				<anchored to="inventorylist" />
+				<target>inventorylist</target>
+			</scrollbar>
+
+			<button_iedit name="inventorylist_iedit">
+				<anchored to="inventorylist" position="aboveright" offset="5,10" />
+				<target>inventorylist</target>
+			</button_iedit>
+			<button_iadd name="inventorylist_iadd">
+				<anchored to="inventorylist_iedit" position="lefthigh" offset="5,0" />
+				<target>inventorylist</target>
+			</button_iadd>
+			
+			<frame_char name="androidframe">
+				<bounds>330,-177,-35,30</bounds>
+				<script>
+					function onDrop(x, y, draginfo)
+						return handleDrop(draginfo, nil);
+					end
+					
+					function handleDrop(draginfo, nodeTargetList)
+						if draginfo.isType("shortcut") then				
+							local sClass, sRecord = draginfo.getShortcutData();					
+							local nodeItem = DB.findNode(sRecord);					
+							if StringManager.contains({"itemtemplate"}, sClass) then						
+								sClass = DB.getValue(nodeItem, "type", ""):lower();
+								nodeChar = window.getDatabaseNode();
+								nodeTargetList = nodeChar.createChild("upgradelist");
+								CharManager.addInfoDB(window.getDatabaseNode(), sClass, sRecord, nodeTargetList);
+								return true;
+							end
+						end
+					end
+				</script>
+			</frame_char>
+			<label name="android_upgrade_label">
+				<anchored to="androidframe" position="left" offset="5,10" width="90" />
+					<static>Upgrade Slot</static>
+				<center />
+			</label>
+			<genericcontrol name="rightanchor">
+				<anchored to="androidframe" width="0" height="0">
+					<top offset="10" />
+					<right offset="-20" />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<list_charupgrade name="upgrade">
+				<anchored to="androidframe">
+					<top offset="5" />
+					<left offset="5" />
+					<right offset="-5" />
+					<bottom offset="-1" />
+				</anchored>
+				<datasource>.upgradelist</datasource>
+				<class>char_upgrade</class>
+				<script>
+					function onDrop(x, y, draginfo)
+						return handleDrop(draginfo, nil);
+					end
+					
+					function handleDrop(draginfo, nodeTargetList)
+						if draginfo.isType("shortcut") then				
+							local sClass, sRecord = draginfo.getShortcutData();					
+							local nodeItem = DB.findNode(sRecord);					
+							if StringManager.contains({"itemtemplate"}, sClass) then						
+								sClass = DB.getValue(nodeItem, "type", ""):lower();
+								nodeChar = window.getDatabaseNode();
+								nodeTargetList = nodeChar.createChild("upgradelist");
+								local nRecord = 0;
+								for _,v in pairs(nodeTargetList.getChildren()) do
+								  nRecord = nRecord + 1;
+								end
+								if nRecord == 0 then
+									CharManager.addInfoDB(window.getDatabaseNode(), sClass, sRecord, nodeTargetList);
+									return true;
+								end
+							end
+						end
+					end
+				</script>				
+			</list_charupgrade>			
+			<frame_char name="encumbranceframe">
+				<bounds>20,-150,240,140</bounds>
+			</frame_char>
+			<simplenumber name="encumbranceload" source="encumbrance.load">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="80,15" width="30" height="20" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				<readonly />
+			</simplenumber>
+			<label name="encumbrance_label">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="15,15" />
+				<static>Total Bulk</static>
+			</label>
+			<label name="encumbrance_label2">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="80,35" />
+				<static>Carry Capacity</static>
+			</label>
+		
+			<stringu name="cclabel" source="encumbrance.state">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="125,15" />
+				<lineoffset default="off" mergerule="replace">0</lineoffset>				
+				<right />
+			</stringu>
+			<!--
+			<simplenumber name="stradjust" source="encumbrance.strmod">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="120,100" width="30" height="20" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				
+			</simplenumber>
+			<label name="stradjust_label">
+				<anchored to="encumbranceframe" position="insidetopleft"  offset="15,100" />
+				<static>STR Adjustment</static>				
+			</label>
+			-->
+			<basicnumber name="encumbrancelightload" source="encumbrance.lightload" >
+				<anchored to="encumbranceframe" position="insidetopleft" offset="15,65" width="69" height="20" />
+				<readonly />
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encumbrancelightload" />
+				<static>Unencumbered</static>
+			</label_fieldtop>
+			<basicnumber name="encumbrancemediumload" source="encumbrance.mediumload">
+				<anchored to="encumbrancelightload" position="right" offset="10,0" width="55" />
+				<readonly />
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encumbrancemediumload" />
+				<static>Encumbered</static>
+			</label_fieldtop>
+			<basicnumber name="encumbranceheavyload" source="encumbrance.heavyload" >
+				<anchored to="encumbrancemediumload" position="right" offset="10,0" width="65" />
+				<readonly />
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encumbranceheavyload" />
+				<static>Over Burdened</static>
+			</label_fieldtop>
+			<buttoncontrol name="button_emcumbrance">
+				<anchored to="encumbranceframe" position="insidetopleft" offset="210,100" width="20" height="20" />
+				
+				<state icon="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charsheet_encumbrance", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
+		
+		<label>
+				<anchored to="encumbranceframe" position="insidetopleft" offset="15,100" />
+				<static>Armor Chk</static>
+			</label>
+			<basicnumber name="armormaxstatbonus" source="encumbrance.armormaxstatbonus" >
+				<anchored to="encumbranceframe" position="insidetopleft" offset="120,105" width="35" height="20" />
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="armormaxstatbonus" offset="6,1" />
+				<static textres="char_label_invarmormaxability" />
+			</label_fieldtop>
+			<basicnumber name="armorcheckpenalty" source="encumbrance.armorcheckpenalty" >
+				<anchored to="armormaxstatbonus" position="right" offset="15,0" width="35" />
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="armorcheckpenalty" offset="6,1" />
+				<static textres="char_label_invarmorskillcheckpenalty" />
+			</label_fieldtop>
+
+			<buttonfield name="usearmormaxstatbonus" source="encumbrance.armormaxstatbonusactive" >
+				<anchored to="encumbranceframe" position="insidetopleft" offset="87,105" width="12" height="12" />
+				<state icon="button_checkoff" tooltipres="char_tooltip_armormodoff" />
+				<state icon="button_checkon" tooltipres="char_tooltip_armormodon" />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					
+					function onValueChanged()
+						if getValue() == 1 then
+							window.armormaxstatbonus.setColor("FF000000");
+							window.armorcheckpenalty.setColor("FF000000");
+						else
+							window.armormaxstatbonus.setColor("7F000000");
+							window.armorcheckpenalty.setColor("7F000000");
+						end
+					end
+				</script>
+			</buttonfield>
+			
+			
+			<frame_char name="coinframe">
+				<bounds>255,-150,-29,140</bounds>
+			</frame_char>
+			<label_frametop name="coin_label">
+				<anchored to="coinframe" />
+				<static>Financial Assets</static>
+			</label_frametop>
+			<number_dropadd name="incomeamount" source="coins.slot1.amount">
+				<anchored to="coinframe" position="insidetopleft" offset="70,40" width="60" height="20" />
+			</number_dropadd>
+			<stringu name="incomelabel" source="coins.slot1.name">
+				<anchored to="incomeamount" position="left" offset="10" />
+				<lineoffset default="off" mergerule="replace">0</lineoffset>
+				<static>Credits</static>
+				<right />
+			</stringu>
+			<number_dropadd name="creditamount" source="coins.slot2.amount">
+				<anchored to="incomeamount" position="below" offset="0,6" height="20" />
+			</number_dropadd>
+			<stringu name="creditlabel" source="coins.slot2.name">
+				<anchored to="creditamount" position="left" offset="10" />
+				<lineoffset default="off" mergerule="replace">0</lineoffset>
+				<static>Income</static>
+				
+				<right />
+			</stringu>
+			<number_dropadd name="upbamount" source="coins.slot3.amount">
+				<anchored to="creditamount" position="below" offset="0,6" height="20" />
+				<script>
+					function onValueChanged()
+						CharManager.updateEncumbrance(window.getDatabaseNode());
+					end
+				</script>			</number_dropadd>
+			<stringu name="upblabel" source="coins.slot3.name">
+				<anchored to="upbamount" position="left" offset="10" />
+				<lineoffset default="off" mergerule="replace">0</lineoffset>
+				<static>UPB</static>
+				<right />
+			</stringu>
+			<basicstring name="coinother">
+				<anchored>
+					<left parent="incomeamount" anchor="right" offset="10" />
+					<right parent="coinframe" offset="-15" />
+					<top parent="incomeamount" />
+					<bottom parent="upbamount" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</basicstring>
+		
+			
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_invitem">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				getDatabaseNode().onDelete = onDelete;
+			end
+			function onDelete(node)
+				ItemManager.onCharRemoveEvent(node);
+			end
+		</script>
+		<sheetdata>
+			<hidden_record_isidentified name="isidentified"><class>item</class><ignorehost /></hidden_record_isidentified>
+
+			<number_charinv name="count">
+				<bounds>5,2,20,20</bounds>
+				<tabtarget next="name" />
+				<default>1</default>
+			</number_charinv>
+
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<linkcontrol_id name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-2" />
+				</anchored>
+				<class>item</class>
+				<readonly />
+			</linkcontrol_id>
+			<button_char_inv_carried name="carried">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_char_inv_carried>
+			<stringu name="bulk">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						local sBulk = getValue();						
+							if getValue() == "" then
+							   nWeight = 0;
+							elseif getValue() == "L" then
+								nWeight = (0.1);
+							else
+								nWeight = tonumber(getValue());
+							end
+						window.weight.setValue(nWeight);
+					end				  
+				</script>
+				<tabtarget next="weight" prev="nonid_name" />
+			</stringu>
+			<number_charinv name="weight">
+				<anchored width="30" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<readonly />
+				<delaykeyupdate />
+				<tabtarget prev="location" />
+			</number_charinv>			
+			<string_charinvloc name="location">
+				<anchored width="80" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
+				</anchored>
+				<tabtarget next="weight" prev="nonid_name" />
+			</string_charinvloc>			
+			<string_charinvname name="name">
+				<anchored position="insidetopleft" offset="35,2" height="20">
+					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
+				</anchored>
+				<tabtarget next="nonid_name" prev="count" />
+			</string_charinvname>
+			<string_charinvname name="nonid_name">
+				<anchored position="insidetopleft" offset="35,2" height="20">
+					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
+				</anchored>
+				<empty textres="library_recordtype_empty_nonid_item" />
+				<invisible />
+				<tabtarget next="location" prev="name" />
+			</string_charinvname>
+			</sheetdata>
+	</windowclass>
+	<windowclass name="charsheet_encumbrance">
+		<frame>recordsheet_small</frame>		
+		<placement>
+			<size width="300" height="150" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="150" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>char_carry_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+
+			<frame_char name="encadjframe">
+				<anchored to="contentanchor" height="60">
+					<top anchor="bottom" relation="relative" offset="0" />
+					<left />
+					<right />
+				</anchored>
+			</frame_char>
+			<basicnumber name="encstradj" source="encumbrance.stradj">
+				<anchored to="encadjframe" width="60" height="20">
+					<top offset="25" />
+					<right anchor="left" offset="80" />
+				</anchored>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encstradj" />
+				<static>Items (Str)</static>
+			</label_fieldtop>
+			<basicnumber name="encpower" source="encumbrance.encpower">
+				<anchored to="encadjframe" width="60" height="20">
+					<top offset="25" />
+					<left anchor="center" offset="-30" />
+				</anchored>
+				<min>0</min>
+				<default>0</default>				
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encpower" />
+				<static>Armor (Str)</static>
+				
+			</label_fieldtop>
+			<basicnumber name="encother" source="encumbrance.encother">
+				<anchored to="encadjframe" width="60" height="20">
+					<top offset="25" />
+					<left anchor="right" offset="-80" />
+				</anchored>
+				<min>0</min>
+				<default>0</default>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="encother" />
+				<static>Other</static>
+				
+			</label_fieldtop>
+
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charsheet_aug">
+		<frame>recordsheet_small</frame>		
+		<placement>
+			<size width="300" height="300" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />			
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<script>
+			function onDrop(x, y, draginfo)
+				return handleDrop(draginfo, nil);
+			end
+			
+			function handleDrop(draginfo, nodeTargetList)
+				if draginfo.isType("shortcut") then				
+					local sClass, sRecord = draginfo.getShortcutData();					
+					local nodeItem = DB.findNode(sRecord);					
+					if StringManager.contains({"item"}, sClass) then						
+						sClass = DB.getValue(nodeItem, "type", ""):lower();
+						CharManager.addInfoDB(getDatabaseNode(), sClass, sRecord, nodeTargetList);
+						return true;
+					end
+				end
+			end
+		</script>
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>char_aug_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+
+			<frame_char name="augframe">
+				<anchored to="contentanchor" height="230">
+					<top anchor="bottom" relation="relative" offset="0" />
+					
+					<left />
+					<right />
+				</anchored>
+			</frame_char>
+			<label_frametop>
+				<anchored to="augframe" />
+				<static textres="char_aug_title" />
+			</label_frametop>
+			<list_charabilities name="augs">
+				<anchored to="augframe" />
+				<datasource>.auglist</datasource>
+				<class>char_aug</class>
+			</list_charabilities>
+			<scrollbar>
+				<anchored to="augs" />
+				<target>augs</target>
+			</scrollbar>
+			<button_iedit name="augs_iedit">
+				<anchored to="augs" position="aboveright" offset="5,5" />
+				<target>augs</target>
+			</button_iedit>
+			<button_iadd name="augs_iadd">
+				<anchored to="augs" position="aboveleft" offset="5,5" />
+				<target>augs</target>
+			</button_iadd>			
+
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="char_aug">
+		<margins control="0,0,0,2" />		
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<linkcontrol name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>item</class>
+				<description field="name" />
+				<readonly />
+			</linkcontrol>
+			<string_textlistitem name="name">
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</string_textlistitem>			
+		</sheetdata>
+	</windowclass>
+	<windowclass name="char_upgrade">
+		<margins control="0,0,0,2" />		
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<linkcontrol name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>itemtemplate</class>
+				<description field="name" />
+				<readonly />
+			</linkcontrol>
+			<string_textlistitem name="name">
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</string_textlistitem>			
+		</sheetdata>
+	</windowclass>
+</root>

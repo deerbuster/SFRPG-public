@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="boon">
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="400" height="350" />
+		</placement>
+		<sizelimits>
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if content.subwindow then
+					content.subwindow.update();
+				end
+			end
+		</script>
+		<sheetdata>
+			<sub_ref_header name="header">
+				<class>boon_header</class>
+			</sub_ref_header>
+
+			<frame_ref_content />
+			<sub_ref_content name="content">
+				<class>boon_stats</class>
+			</sub_ref_content>
+			<scrollbar_ref_content />
+			
+			<resize_referencepage />
+			<close_referencepage />
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="boon_header">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header>
+				<class>boon</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_boon" />
+			</string_record_name>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="boon_stats">
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				if bReadOnly then
+					type_biglabel.setValue("[" .. type.getValue() .. "]");
+					type_biglabel.setVisible(true);
+					
+					type.update(bReadOnly, true);
+				else
+					type_biglabel.setVisible(false);
+					type.update(bReadOnly);
+				end
+				prequisite.update(bReadOnly);
+				benefit.update(bReadOnly);
+				normal.update(bReadOnly);
+				special.update(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			
+			<hs name="type" />
+			
+			<label_column name="type_biglabel">
+				<anchored>
+					<top relation="relative" offset="7" />
+				</anchored>
+				<font>reference-b-large</font>
+			</label_column>
+
+			<label_column name="type_label">
+				<static textres="boon_label_type" />
+			</label_column>
+			<string_columnh name="type" />
+			
+			<label_column name="prequisite_label">
+				<static textres="boon_label_prereq" />
+			</label_column>
+			<ft_columnh name="prequisite">
+			<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="27" />
+				</anchored>
+				<separator>line_benefit</separator>
+			<line_column name="line_benefit" />
+			</ft_columnh>
+			<label_column name="benefit_label">
+				<static textres="boon_label_benefit" />
+			</label_column>
+			<ft_columnh name="benefit">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="27" />
+				</anchored>
+				<separator>line_benefit</separator>
+			</ft_columnh>
+
+			<line_column name="line_normal" />
+
+			<label_column name="normal_label">
+				<static textres="boon_label_normal" />
+			</label_column>
+			<ft_columnh name="normal">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="27" />
+				</anchored>
+				<separator>line_normal</separator>
+			</ft_columnh>
+
+			<line_column name="line_special" />
+
+			<label_column name="special_label">
+				<static textres="boon_label_special" />
+			</label_column>
+			<ft_columnh name="special">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="27" />
+				</anchored>
+				<separator>line_special</separator>
+			</ft_columnh>
+		</sheetdata>
+	</windowclass>
+</root>

@@ -1,0 +1,1246 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>	
+	<!-- NOTE: Multi-column field layouts should not use auto-hiding control templates; they won't work well. You'll need to roll your own auto-hiding code, if needed. -->
+	<windowclass name="companionsheet_main">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/comp_main.lua" />
+	<sheetdata>
+			<anchor_column name="columnanchor" />
+					
+			<header_column name="stats_header">
+				<static textres="npc_header_stats" />
+			</header_column>
+			<number_npc_ability name="strength" source="abilities.strength.score">
+				<anchored width="40" height="25">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+					<left offset="40" />
+				</anchored>
+				<target>strength</target>
+				<modtarget>strength_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="strength_label">
+				<anchored to="strength" />
+				<static textres="str" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="strength_modifier" source="abilities.strength.bonus">
+				<anchored to="strength" />
+				<target>strength</target>
+			</number_npc_abilitymod>	
+			
+			<number_npc_ability name="dexterity" source="abilities.dexterity.score">
+				<anchored to="strength" width="40" height="25">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>dexterity</target>
+				<modtarget>dexterity_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="dexterity_label">
+				<anchored to="dexterity" />
+				<static textres="dex" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="dexterity_modifier" source="abilities.dexterity.bonus">
+				<anchored to="dexterity" />
+				<target>dexterity</target>
+			</number_npc_abilitymod>			
+			
+			<number_npc_ability name="constitution" source="abilities.constitution.score">
+				<anchored to="strength" width="40" height="25">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>constitution</target>
+				<modtarget>constitution_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="constitution_label">
+				<anchored to="constitution" />
+				<static textres="con" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="constitution_modifier" source="abilities.constitution.bonus">
+				<anchored to="constitution" />
+				<target>constitution</target>
+			</number_npc_abilitymod>			
+			
+			<number_npc_ability name="intelligence" source="abilities.intelligence.score">
+				<anchored to="strength" width="40" height="25">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>intelligence</target>
+				<modtarget>intelligence_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="intelligence_label">
+				<anchored to="intelligence" />
+				<static textres="int" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="intelligence_modifier" source="abilities.intelligence.bonus">
+				<anchored to="intelligence" />
+				<target>intelligence</target>
+			</number_npc_abilitymod>			
+			
+			<number_npc_ability name="wisdom" source="abilities.wisdom.score" >
+				<anchored to="strength" width="40" height="25">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>wisdom</target>
+				<modtarget>wisdom_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="wisdom_label">
+				<anchored to="wisdom" />
+				<static textres="wis" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="wisdom_modifier" source="abilities.wisdom.bonus">
+				<anchored to="wisdom" />
+				<target>wisdom</target>
+			</number_npc_abilitymod>			
+			
+			<number_npc_ability name="charisma" source="abilities.charisma.score" >
+				<anchored to="strength" width="40" height="25">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>charisma</target>
+				<modtarget>charisma_modifier</modtarget>
+				<readonly />
+			</number_npc_ability>
+			<label_fieldtop name="charisma_label">
+				<anchored to="charisma" />
+				<static textres="cha" />
+			</label_fieldtop>
+			<number_npc_abilitymod name="charisma_modifier" source="abilities.charisma.bonus">
+				<anchored to="charisma" />
+				<target>charisma</target>
+			</number_npc_abilitymod>		
+			
+			<label_column name="senses_label">				
+				<static textres="npc_label_senses" />
+			</label_column>
+			<string_columnh name="senses">
+			<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+					<left offset="47" />
+			</anchored>
+				<senses_only />
+				<script file="campaign/scripts/npc_skill.lua" />				
+			</string_columnh>
+			
+			<label_column name="aura_label">
+				<static textres="npc_label_aura" />
+			</label_column>
+			<string_columnh name="aura">
+			<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+					<left offset="47" />
+			</anchored>				
+			</string_columnh>
+	
+			<header_column name="defense_header">
+				<static textres="npc_header_defense" />
+			</header_column>
+			
+			
+			<number_comptotaleac name="eac" source="ac.totals.eac">
+				<anchored width="40" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+					<left offset="40" />
+				</anchored>
+			</number_comptotaleac>
+			<label_fieldtop name="eac_label">
+				<anchored to="eac" />
+				<static textres="npc_label_eac" />
+			</label_fieldtop>			
+			<number_comptotalkac name="kac" source="ac.totals.kac">
+				<anchored to="eac" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+			</number_comptotalkac>
+			<label_fieldtop name="kac_label">
+				<anchored to="kac" />
+				<static textres="npc_label_kac" />
+			</label_fieldtop>			
+			<number_charcmd name="cmd" source="ac.totals.cmd">
+				<anchored to="kac" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+			</number_charcmd>
+			<label_fieldtop name="cmd_label">
+				<anchored to="cmd" />
+				<static>CMD</static>
+			</label_fieldtop>			
+						
+			<basicnumber name="hp" source="hp.total" >
+				<anchored to="cmd" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="30" />
+				</anchored>
+				<readonly />
+				<frame name="fieldlight" offset="7,5,7,5" />
+			</basicnumber>			
+			<label_fieldtop name="hp_label">
+				<anchored to="hp" />
+				<static>Max</static>
+			</label_fieldtop>
+			<basicnumber name="temporary" source="hp.temporary" >
+				<anchored to="hp" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+			</basicnumber>
+			<label_fieldtop name="temporary_label">
+				<anchored to="temporary" />
+				<static>Temp</static>
+			</label_fieldtop>
+			<basicnumber name="wounds" source="hp.wounds">
+				<anchored to="temporary" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+			</basicnumber>
+			<label_fieldtop name="wounds_label">
+				<anchored to="wounds" />
+				<static>Wounds</static>
+			</label_fieldtop>			
+			<label_column>
+				<anchored>
+					<top offset="20" />
+				</anchored>
+				<static textres="npc_label_saves" />
+			</label_column>
+			<number_compsavefort name="fortitude" source="saves.fortitude.total">
+				<anchored width="40" height="20">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20" />
+					<left offset="97" />
+				</anchored>
+				<target>fortitude</target>
+				<readonly />
+			</number_compsavefort>
+			<label_fieldtop name="fortitude_label">
+				<anchored to="fortitude" />
+				<static textres="fortitude" />
+			</label_fieldtop>
+			<number_compsaveref name="reflex" source="saves.reflex.total">
+				<anchored to="fortitude" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>reflex</target>
+				<readonly />
+			</number_compsaveref>
+			<label_fieldtop name="reflex_label">
+				<anchored to="reflex" />
+				<static textres="reflex" />
+			</label_fieldtop>
+			<number_compsavewill name="will" source="saves.will.total">
+				<anchored to="fortitude" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<target>will</target>
+				<readonly />
+			</number_compsavewill>
+			<label_fieldtop name="will_label">
+				<anchored to="will" />
+				<static textres="will_long" />
+			</label_fieldtop>
+			<label_column name="defensiveabilities_label">
+				<static textres="npc_label_dabilities" />
+			</label_column>
+			<string_columnh name="defensiveabilities" />
+			
+			
+			<header_column name="offense_header">
+				<static textres="npc_header_offense" />
+			</header_column>
+			
+			
+			<label_column name="speedspecial_label">
+				<static textres="npc_label_speed" />
+			</label_column>
+			<string_columnh name="speedspecial" source="speed.special" />
+			<label_column name="melee_label">
+				<static textres="npc_label_melee" />
+			</label_column>
+			<string_columnh name="melee">
+				<actortype>npc</actortype>
+				<actorpath>..</actorpath>
+				<script file="common/scripts/string_attackline.lua" />
+			</string_columnh>
+			<!-- multiatk
+			<label_column name="multiatk_label">
+				<static textres="npc_label_multiatk" />
+			</label_column>
+			<string_columnh name="multiatk">
+				<actortype>npc</actortype>
+				<actorpath>..</actorpath>
+				<script file="common/scripts/string_attackline.lua" />
+			</string_columnh>
+			-->
+			<label_column name="ranged_label">
+				<static textres="npc_label_rangedatk" />
+			</label_column>
+			<string_columnh name="ranged">
+				<actortype>npc</actortype>
+				<actorpath>..</actorpath>
+				<ranged />
+				<script file="common/scripts/string_attackline.lua" />
+			</string_columnh>	
+			<label_column name="space_label">
+					<static>Space/Reach</static>
+			</label_column>
+			<number_columnh name="space">
+				<frame name="fieldlight" offset="7,5,7,5" />
+			</number_columnh>
+			<basicnumber name="reach">
+				<anchored to="space" width="40" height="20">
+					<top />
+					<left anchor="right" relation="relative" offset="10" />
+				</anchored>
+				<frame name="fieldlight" offset="7,5,7,5" />
+				
+			</basicnumber>
+			<label_column name="reachnote_label">
+				<static textres="npc_label_spacereachnote" />
+			</label_column>
+			<string_columnh name="reachnote" />
+			
+			<label_column name="offensiveabilities_label">
+				<static textres="npc_label_offabilities" />
+			</label_column>
+			<string_columnh name="offensiveabilities" >
+				<actortype>npc</actortype>
+				<actorpath>..</actorpath>
+				<script file="common/scripts/string_attackline.lua" />
+			</string_columnh>
+			<label_column name="spelllikeabilities_label">
+				<static>Spell-Like Abil.</static>
+			</label_column>
+			<string_columnh name="spelllikeabilities" />
+
+			<header_column name="abilities_header">				
+				<static>SKILLS</static>
+			</header_column>
+			<label_column name="skills_label">
+				<static textres="npc_label_skills" />
+			</label_column>
+			<string_columnh name="skills">
+				<script file="campaign/scripts/npc_skill.lua" />				
+			</string_columnh>
+			<!--Editor buttons-->
+			<buttoncontrol name="button_ability_stats">
+				<anchored to="strength" position="insidetopleft" offset="-30,-8" width="20" height="20" />				
+				<state icon="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("compsheet_abilitystats_editor", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
+			<buttoncontrol name="button_combatditor">
+				<anchored to="eac" position="insidetopleft" offset="-25,-8" width="20" height="20" />				
+				<state icon="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("compsheet_combat_editor", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>		
+			<header_column name="specialabilities_header">
+				<static textres="npc_header_sabilities" />
+			</header_column>
+			
+			<button_iedit name="specialabilities_iedit">
+				<anchored to="specialabilities_header" position="righthigh" offset="-20,0" />
+				<target>specialabilities</target>
+			</button_iedit>
+			<button_iadd name="specialabilities_iadd">
+				<anchored to="specialabilities_iedit" position="lefthigh" offset="5,0" />
+				<target>specialabilities</target>
+			</button_iadd>
+		
+			<list_column name="specialabilities" >				
+				<datasource>.specialabilities</datasource>
+				<class>comp_specialabilitylistentry</class>
+				<sortby><control>name</control></sortby>
+				<script>
+					function onDrop(x, y, draginfo)
+						return;
+					end
+				</script>
+			</list_column>
+				
+			
+		</sheetdata>
+	</windowclass>
+		
+	<!--EDITORS-->
+	<windowclass name="compsheet_abilitystats_editor">
+		
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="300" height="300" />
+		</placement>
+		<sizelimits>
+			<minimum width="300" height="300" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<script>
+			local bInitialized = false;
+
+			function isInitialized()
+				return bInitialized;
+			end
+
+			function onInit()
+				bInitialized = true;					
+							
+			end
+		</script>
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>char_ability_title</prefix>
+			</windowtitlebar_char>
+			<frame_char name="editorframe">
+				<bounds>15,35,260,220</bounds>
+			</frame_char>
+<!--STR-->			
+			<basicnumber name="strength_base" source="abilities.strength.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="25" />
+					<right anchor="center" offset="-45" />
+				</anchored>
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<number_charcombatabilitymod name="strstatmod" source="abilities.strength.bonus">
+				<anchored to="strength_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<basicnumber name="strength_adjustment" source="abilities.strength.mod">
+				<anchored to="strength_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			<label name="str_label">
+				<anchored to="strength_base" position="lefthigh" width="35" />
+				<static>STR</static>
+			</label>
+<!--DEX-->
+			<basicnumber name="dexterity_base" source="abilities.dexterity.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="55" />
+					<right anchor="center" offset="-45" />
+				</anchored>		
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<basicnumber name="dexterity_adjustment" source="abilities.dexterity.mod">
+				<anchored to="dexterity_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			<number_charcombatabilitymod name="dexstatmod" source="abilities.dexterity.bonus">
+				<anchored to="dexterity_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<label name="str_label">
+				<anchored to="dexterity_base" position="lefthigh" width="35" />
+				<static>DEX</static>
+			</label>
+<!--CON-->
+			<basicnumber name="constitution_base" source="abilities.constitution.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="85" />
+					<right anchor="center" offset="-45" />
+				</anchored>		
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<basicnumber name="constitution_adjustment" source="abilities.constitution.mod">
+				<anchored to="constitution_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			<number_charcombatabilitymod name="constatmod" source="abilities.constitution.bonus">
+				<anchored to="constitution_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<label name="str_label">
+				<anchored to="constitution_base" position="lefthigh" width="35" />
+				<static>CON</static>
+			</label>
+<!--INT-->
+			<basicnumber name="intelligence_base" source="abilities.intelligence.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="115" />
+					<right anchor="center" offset="-45" />
+				</anchored>		
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<number_charcombatabilitymod name="intstatmod" source="abilities.intelligence.bonus">
+				<anchored to="intelligence_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<basicnumber name="intelligence_adjustment" source="abilities.intelligence.mod">
+				<anchored to="intelligence_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			<label name="str_label">
+				<anchored to="intelligence_base" position="lefthigh" width="35" />
+				<static>INT</static>
+			</label>
+<!--WIS-->
+			<basicnumber name="wisdom_base" source="abilities.wisdom.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="145" />
+					<right anchor="center" offset="-45" />
+				</anchored>		
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<number_charcombatabilitymod name="wisstatmod" source="abilities.wisdom.bonus">
+				<anchored to="wisdom_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<basicnumber name="wisdom_adjustment" source="abilities.wisdom.mod">
+				<anchored to="wisdom_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			<label name="str_label">
+				<anchored to="wisdom_base" position="lefthigh" width="35" />
+				<static>WIS</static>
+			</label>
+<!--CHA-->
+			<basicnumber name="charisma_base" source="abilities.charisma.base">
+				<anchored to="editorframe" width="40" height="20">
+					<top offset="175" />
+					<right anchor="center" offset="-45" />
+				</anchored>		
+				<min>0</min>
+				<default>10</default>
+			</basicnumber>
+			<number_charcombatabilitymod name="chastatmod" source="abilities.charisma.bonus">
+				<anchored to="charisma_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="5" />
+				</anchored>
+			</number_charcombatabilitymod>
+			<label name="str_label">
+				<anchored to="charisma_base" position="lefthigh" width="35" />
+				<static>CHA</static>
+			</label>
+			<basicnumber name="charisma_adjustment" source="abilities.charisma.mod">
+				<anchored to="charisma_base" width="40" height="20">
+					<top offset="" />
+					<left anchor="right" offset="60" />
+				</anchored>				
+			</basicnumber>
+			
+			<label_fieldtop>
+				<anchored to="strength_base" />
+				<static>Base</static>
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="strength_adjustment" />
+				<static>Mod</static>				
+			</label_fieldtop>
+			
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="compsheet_combat_editor">	
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="520" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="520" height="350" />
+			
+		</sizelimits>
+		<nodelete />
+<!--		
+		<script>
+			local bInitialized = false;
+
+			function isInitialized()
+				return bInitialized;
+			end
+
+			function onInit()
+				bInitialized = true;			
+			end
+		</script>
+-->
+		<sheetdata>		
+			<windowtitlebar_char name="title">
+				<prefix>char_combat_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+			<!-- Frames-->
+			<frame_char name="saveframe">
+				<bounds>15,35,225,120</bounds>
+			</frame_char>			
+			<frame_char name="attackframe">
+				<bounds>15,160,225,150</bounds>
+			</frame_char>
+			
+			<frame_char name="srframe">
+				<bounds>370,35,130,120</bounds>
+			</frame_char>			
+			<frame_char name="speedframe">
+				<bounds>240,35,130,120</bounds>
+			</frame_char>
+			<frame_char name="acframe">
+				<bounds>240,160,260,150</bounds>
+			</frame_char>
+			
+			<!-- Saves-->
+			<number_compsavefort name="fortitude" source="saves.fortitude.total">
+				<anchored to="saveframe" position="insidetopleft" offset="105,28" width="32" height="20" />
+			</number_compsavefort>
+			<simplenumber name="fortitudebase" source="saves.fortitude.base">
+				<anchored to="fortitude" width="30" height="20">
+					<top  />
+					<right anchor="right" offset="37" />
+				</anchored>				
+				<displaysign />
+				<nodrag />
+				<readonly />				
+			</simplenumber>
+			<number_charcombatmod name="fortitudemisc" source="saves.fortitude.misc">
+				<anchored to="fortitudebase" />
+				<hideonvalue>0</hideonvalue>
+			</number_charcombatmod>
+			<label name="fortitude_label">
+				<anchored to="saveframe" position="insidetopleft" offset="20,28" width="80" />
+				<static textres="fortitude" />
+			</label>
+			<number_compsaveref name="reflex" source="saves.reflex.total">
+				<anchored to="fortitude" position="belowleft" offset="0,8" width="32" height="20" />
+			</number_compsaveref>
+			<simplenumber name="reflexbase" source="saves.reflex.base">
+				<anchored to="reflex" width="30" height="20">
+					<top  />
+					<right anchor="right" offset="37" />
+				</anchored>
+				<displaysign />
+				<nodrag />
+				<readonly />				
+			</simplenumber>
+			<number_charcombatmod name="reflexmisc" source="saves.reflex.misc">
+				<anchored to="reflexbase" />
+				<hideonvalue>0</hideonvalue>
+			</number_charcombatmod>
+			<label name="reflex_label">
+				<anchored to="fortitude_label" position="belowleft" offset="0,8" width="80" />
+				<static textres="reflex" />
+			</label>
+			<number_compsavewill name="will" source="saves.will.total">
+				<anchored to="reflex" position="belowleft" offset="0,8" width="32" height="20" />
+			</number_compsavewill>
+			<simplenumber name="willbase" source="saves.will.base">
+				<anchored to="will" width="30" height="20">
+					<top  />
+					<right anchor="right" offset="37" />
+				</anchored>
+				<displaysign />
+				<nodrag />
+				<readonly />				
+			</simplenumber>
+			<number_charcombatmod name="willmisc" source="saves.will.misc">
+				<anchored to="willbase" />
+				<hideonvalue>0</hideonvalue>
+			</number_charcombatmod>
+			<label name= "will label">
+				<anchored to="reflex_label" position="belowleft" offset="0,8" width="80" />
+				<static textres="will_long" />
+			</label>
+			<label_fieldtop>
+				<anchored to="fortitude" />
+				<static textres="char_label_combattotal" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="fortitudemisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="fortitudebase" />
+				<static>Base</static>
+			</label_fieldtop>
+			
+			<!-- Attacks -->
+			<label>
+				<anchored to="attackframe" position="insidetopleft" offset="20,20" />
+				<static textres="char_label_combatatkbase" />
+			</label>
+			<basicnumber name="baseattackbonus" source="attackbonus.base">
+				<anchored to="attackframe" position="insidetopleft" offset="145,16" width="32" height="20" />
+				<displaysign />
+				<description textres="char_tooltip_combatatkbase" />
+			</basicnumber>
+
+			<number_charmeleetotal name="meleeattackbonus" source="attackbonus.melee.total">
+				<anchored to="attackframe" position="insidetopleft" offset="105,56" width="32" height="20" />
+			</number_charmeleetotal>
+			<label name="meleeattackbonus_label">
+				<anchored to="attackframe" position="insidetopleft" offset="20,56" width="80" />
+				<static textres="char_label_combatatkmelee" />
+			</label>
+			<number_charrangedtotal name="rangedattackbonus" source="attackbonus.ranged.total">
+				<anchored to="meleeattackbonus" position="belowleft" offset="0,8" width="32" height="20" />
+			</number_charrangedtotal>
+			<label name="rangedattackbonus_label">
+				<anchored to="meleeattackbonus_label" position="belowleft" offset="0,8" width="80" />
+				<static textres="char_label_combatatkranged" />
+			</label>
+			<label_fieldtop>
+				<anchored to="meleeattackbonus" />
+				<static textres="char_label_combattotal" />
+			</label_fieldtop>
+			
+			<number_charcombatmod_static name="meleebaseattackbonus" source="attackbonus.base">
+				<anchored to="baseattackbonus" offset="0,20" />
+			</number_charcombatmod_static>
+			<number_charcombatmod name="meleemisc" source="attackbonus.melee.misc">
+				<anchored to="meleebaseattackbonus" />
+			</number_charcombatmod>
+
+			<number_charcombatmod_static name="rangedbaseattackbonus" source="attackbonus.base">
+				<anchored to="meleebaseattackbonus" />
+			</number_charcombatmod_static>
+			<number_charcombatmod name="rangedmisc" source="attackbonus.ranged.misc">
+				<anchored to="rangedbaseattackbonus" />
+			</number_charcombatmod>
+			
+			<label_fieldtop>
+				<anchored to="meleemisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+
+			<!-- Defenses - Spell -->			
+			<number_charsr name="srfinal" source="defenses.sr.total">
+				<anchored to="srframe" position="insidetopleft" offset="78,16" width="32" height="20" />
+				<hideonvalue>0</hideonvalue>
+			</number_charsr>
+			<label>
+				<anchored>
+					<left parent="srframe" offset="15" />
+					<top parent="srfinal" />
+				</anchored>
+				<static textres="sr" />
+			</label>
+			<basicnumber name="srbase" source="defenses.sr.base">
+				<anchored to="srframe" width="30" height="20">
+					<top offset="54" />
+					<right anchor="center" offset="-4" />
+				</anchored>
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="srbase" />
+				<static textres="char_label_combatbase" />
+			</label_fieldtop>
+			<basicnumber name="srmisc" source="defenses.sr.misc">
+				<anchored to="srbase" position="right" offset="8,0" width="30" />
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="srmisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+
+			<!-- Speed -->			
+			<number_charspeed name="speedfinal" source="speed.total">
+				<anchored to="speedframe" position="insidetopleft" offset="78,16" width="32" height="20" />
+			</number_charspeed>
+			<label>
+				<anchored>
+					<left parent="speedframe" offset="15" />
+					<top parent="speedfinal" />
+				</anchored>
+				<static textres="char_label_combatspeed" />
+			</label>
+			<basicnumber name="speedbase" source="speed.base">
+				<anchored to="speedframe" position="insidetopleft" offset="12,54" width="30" height="20" />
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="speedbase" />
+				<static textres="char_label_combatbase" />
+			</label_fieldtop>
+			<basicnumber name="speedarmor" source="speed.armor">
+				<anchored to="speedbase" position="right" offset="8,0" width="30" />
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="speedarmor" />
+				<static textres="char_label_combatarmor" />
+			</label_fieldtop>
+			<basicnumber name="speedmisc" source="speed.misc">
+				<anchored to="speedarmor" position="right" offset="8,0" width="30" />
+				<hideonvalue>0</hideonvalue>
+			</basicnumber>
+			<label_fieldtop>
+				<anchored to="speedmisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+			
+			<!--EAC Line-->
+			<number_comptotaleac name="eac" source="ac.totals.eac">
+				<anchored to="acframe" position="insidetopleft" offset="105,28" width="32" height="20" />				
+			</number_comptotaleac>
+			<label name="eac_label">
+				<anchored to="acframe" position="insidetopleft" offset="10,25" height = "20" width="80" />
+				<static textres="armorclasseac" />
+			</label>
+			<number_charcombatmod name="eacarmor" source="ac.sources.eac.armor">
+				<anchored to="eac" offset="15,0" />				
+			</number_charcombatmod>	
+			<number_charcombatmod name="eacshield" source="ac.sources.eac.shield">
+				<anchored to="eacarmor" />
+			</number_charcombatmod>
+			<number_charcombatmod name="eacmisc" source="ac.sources.eac.misc">
+				<anchored to="eacshield" />
+			</number_charcombatmod>
+			<!--KAC Line-->			
+			<number_comptotalkac name="kac" source="ac.totals.kac">
+				<anchored to="eac" position="belowleft" offset="0,10" width="32" height="20" />
+			</number_comptotalkac>
+			<label name="kac_label">
+				<anchored to="acframe" position="insidetopleft" offset="10,55" height = "20" width="80" />
+				<static textres="armorclasskac" />
+			</label>
+			<number_charcombatmod name="kacarmor" source="ac.sources.kac.armor">
+				<anchored to="kac" offset="15,0" />
+			</number_charcombatmod>	
+			<number_charcombatmod name="kacshield" source="ac.sources.kac.shield">
+				<anchored to="kacarmor" />
+			</number_charcombatmod>
+			<number_charcombatmod name="kacmisc" source="ac.sources.kac.misc">
+				<anchored to="kacshield" />
+			</number_charcombatmod>
+			
+			<!--CMD Line-->			
+			<number_charcmd name="cmd" source="ac.totals.cmd">
+				<anchored to="kac" position="belowleft" offset="0,30" width="32" height="20" />
+			</number_charcmd>
+			
+			<label name="acvscmbmnv_label">
+				<anchored to="acframe" position="insidetopleft" offset="10,102" height = "20" width="85" />
+				<static>AC vs CM</static>
+			</label>
+			<label name="acvscmbmnv2_label">
+				<anchored to="acframe" position="insidetopleft" offset="25,115" height = "20" width="85" />
+				<static>[KAC + 8]</static>
+			</label>
+			<number_charcombatmod name="cmbmisc" source="ac.sources.cmbmisc">
+				<anchored to="cmd" position="right" offset="10,0"  />				
+			</number_charcombatmod>
+		
+<!--Top Labels-->	
+			<label_fieldtop>
+				<anchored to="eac" />
+				<static textres="char_label_combattotal" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="eacarmor" />
+				<static textres="char_label_combatarmor" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="eacshield" />
+				<static textres="char_label_combatacshield" />
+			</label_fieldtop>
+			
+			<label_fieldtop>
+				<anchored to="eacmisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+			<label_fieldtop>
+				<anchored to="cmbmisc" />
+				<static textres="char_label_combatmisc" />
+			</label_fieldtop>
+
+			
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<!--WINDOWS-->
+	<windowclass name="comp_abilitymod"> 
+		<margins control="0,0,0,2" />
+		<script>
+			function update(bReadOnly)
+				stat.setReadOnly(bReadOnly);
+				mod.setReadOnly(bReadOnly);
+				if mod.getValue() == 0 then
+					mod.setVisible(false);
+					stat.setVisible(false);
+				end
+			end
+		</script>
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<button_listitem_column_delete name="idelete" />
+			
+			<cycler_listitem_column_mod name="stat" />
+			<string_listitem_column_mod name="mod" />
+		</sheetdata>
+	</windowclass>
+	
+	<!-- TEMPLATES-->	
+	<template name="number_comptotaleac">
+		<number_chartotalnomod>
+			<description textres="eac" />			
+			<source><name>ac.sources.eac.base</name><op>+</op></source>
+			<source><name>ac.sources.eac.armor</name><op>+</op></source>
+			<source><name>ac.sources.eac.shield</name><op>+</op></source>
+			<source><name>ac.sources.eac.size</name><op>+</op></source>
+			<source><name>ac.sources.eac.naturalarmor</name><op>+</op></source>
+			<source><name>ac.sources.eac.deflection</name><op>+</op></source>
+			<source><name>ac.sources.eac.dodge</name><op>+</op></source>
+			<source><name>ac.sources.eac.misc</name><op>+</op></source>			
+			<!--<ability><source>ac.sources.eac.ability</source><default>dexterity</default></ability>-->
+			<script>
+				function onSourceUpdate()				
+					setValue(calculateSources());
+				end
+			</script>
+		</number_chartotalnomod>
+	</template>
+	<template name="number_comptotalkac">
+		<number_chartotalnomod>
+			<description textres="kac" />
+			<source><name>ac.sources.kac.base</name><op>+</op></source>
+			<source><name>ac.sources.kac.armor</name><op>+</op></source>
+			<source><name>ac.sources.kac.shield</name><op>+</op></source>
+			<source><name>ac.sources.kac.size</name><op>+</op></source>
+			<source><name>ac.sources.kac.naturalarmor</name><op>+</op></source>
+			<source><name>ac.sources.kac.deflection</name><op>+</op></source>
+			<source><name>ac.sources.kac.ffmisc</name><op>+</op></source>
+			<source><name>ac.sources.kac.temporary</name><op>+</op></source>
+			<source><name>ac.sources.kac.misc</name><op>+</op></source>			
+			<!--<ability><source>ac.sources.kac.ability</source><default>dexterity</default></ability>-->		
+			<script>
+				function onSourceUpdate()						
+					setValue(calculateSources());
+				end
+			</script>
+		</number_chartotalnomod>
+	</template>
+	
+	<windowclass name="comp_specialabilitylistentry">
+		<margins control="0,0,0,2" />
+		<script>
+			function update(bReadOnly)
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+				
+			<link_listitem_column name="shortcut">
+				<class>comp_specialability</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+
+			<string_listitem_column_name name="name">
+				<anchored offset="5,2" />
+				<empty textres="library_recordtype_empty_classfeature" />
+			</string_listitem_column_name>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="comp_specialability">
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="250" height="250" />
+		</placement>
+		<sharable />
+		<sizelimits>
+			<minimum width="350" height="350" />
+			<dynamic />
+		</sizelimits>
+		<minimize>minimized_reference</minimize>
+		<tooltip field="name" />
+		<nodelete />
+		<playercontrol />
+		<sharable />
+		<script>
+			function onLockChanged()
+				if header.subwindow then
+					header.subwindow.update();
+				end
+				if main.subwindow then
+					main.subwindow.update();
+				end
+			end
+		</script>
+		<sheetdata>
+			<sub_record_header name="header">
+				<class>comp_specialability_header</class>
+			</sub_record_header>
+
+			<frame_record_content_tabbed name="contentframe" />
+
+			<subwindow_record name="main">
+				<activate />
+				<class>comp_specialability_main</class>
+			</subwindow_record>
+			<scrollbar_record>
+				<target>main</target>
+			</scrollbar_record>
+						
+			<resize_recordsheet />
+			<close_recordsheet />
+		</sheetdata>
+	</windowclass>	
+	<windowclass name="comp_specialability_main">
+		<margins control="0,0,0,7" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				
+			end
+		</script>
+		<sheetdata>
+			<anchor_column name="columnanchor" />			
+			<basicft name="text">
+				<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+				<left offset="5" />
+				<right offset="-5" />
+			</anchored>
+			</basicft>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="comp_specialability_header">
+		<margins control="0,0,0,2" />
+		<script>
+			function onInit()
+				update();
+			end
+			function update()
+				local bReadOnly = WindowManager.getReadOnlyState(getDatabaseNode());
+				name.setReadOnly(bReadOnly);
+			end
+		</script>
+		<sheetdata>
+			<link_record_header name="shortcut">
+				<class>comp_specialability</class>
+			</link_record_header>
+
+			<anchor_record_header_right />
+			<icon_record_locked />
+			<button_record_locked />
+
+			<string_record_name name="name">
+				<empty textres="library_recordtype_empty_comp_specialability" />
+			</string_record_name>
+			<label_recordtype name="recordtype">
+				<static textres="record_label_comp_specialability" />
+			</label_recordtype>	
+		</sheetdata>
+	</windowclass>
+	<windowclass name="npc_spells">
+		<margins control="0,0,0,2" />
+		<script file="campaign/scripts/npc_spells.lua" />
+		<sheetdata>
+			<button_expand name="expand_full">
+				<anchored position="insidetopleft" offset="5,2" width="20" height="20" />
+				<target>spellclasslist,levels,spells</target>
+				<togglelevel>2</togglelevel>
+				<invisible />
+			</button_expand>
+			<button_collapse name="collapse_full">
+				<anchored position="insidetopleft" offset="35,2" width="20" height="20" />
+				<target>spellclasslist,levels,spells</target>
+				<togglelevel>2</togglelevel>
+				<invisible />
+			</button_collapse>
+			<button_expand name="expand_mini">
+				<anchored position="insidetopleft" offset="5,2" width="20" height="20" />
+				<target>spellclasslist_mini,levels,spells</target>
+				<togglelevel>2</togglelevel>
+				<invisible />
+			</button_expand>
+			<button_collapse name="collapse_mini">
+				<anchored position="insidetopleft" offset="35,2" width="20" height="20" />
+				<target>spellclasslist_mini,levels,spells</target>
+				<togglelevel>2</togglelevel>
+				<invisible />
+			</button_collapse>
+			<label name="label_mode">
+				<anchored position="insidetopleft" offset="75,2" height="20" />
+				<static textres="spell_label_mode" />
+				<invisible />
+			</label>
+			<button_stringcycler name="spellmode">
+				<anchored to="label_mode" position="righthigh" offset="10,0" width="80" />
+				<parameters>
+					<labelsres>spell_label_modeprep|spell_label_modecombat</labelsres>
+					<values>preparation|combat</values>
+					<defaultlabelres>spell_label_modestd</defaultlabelres>
+				</parameters>
+				<invisible />
+				<script>
+					function onValueChanged()
+						window.onModeChanged();
+					end
+				</script>
+			</button_stringcycler>
+			<buttoncontrol name="spellclasslist_iadd">
+				<anchored position="insidetopright" offset="35,2" width="20" height="20" />
+				<icon normal="button_star" pressed="button_star_down" />
+				<tooltip textres="npc_tooltip_spelladdclass" />
+				<invisible />
+				<script>
+					function onButtonPress()
+						window.addSpellClass();
+					end
+				</script>
+			</buttoncontrol>
+			<button_iedit name="spellclasslist_iedit">
+				<anchored position="insidetopright" offset="5,2" width="20" height="20" />
+				<tooltip textres="npc_tooltip_spelledit" />
+				<target>spellclasslist</target>
+				<invisible />
+				<script>
+					function onValueChanged()
+						local bEditMode = (getValue() == 1);
+						
+						window.label_mode.setVisible(not bEditMode);
+						window.spellmode.setVisible(not bEditMode);
+						if bEditMode then
+							DB.setValue(window.getDatabaseNode(), "spellmode", "string", "standard");
+						end
+						window.spellclasslist_iadd.setVisible(bEditMode);
+						window.spellclasslist.update();
+					end
+				</script>
+			</button_iedit>
+
+			<list_spellclass name="spellclasslist">
+				<anchored position="insidetop" offset="0,30" />
+				<class>spell_class</class>
+				<npc />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit();
+						registerMenuItem(Interface.getString("menu_addspellclass"), "insert", 5);
+						registerMenuItem(Interface.getString("menu_resetspells"), "lockvisibilityon", 8);
+					end
+					
+					function onMenuSelection(selection)
+						if selection == 5 then
+							window.addSpellClass();
+						elseif selection == 8 then
+							SpellManager.resetSpells(window.getDatabaseNode());
+						end
+					end
+				</script>
+			</list_spellclass>
+			<list_spellclass name="spellclasslist_mini">
+				<anchored position="insidetop" offset="0,30" />
+				<class>spell_class_mini</class>
+				<npc />
+				<minisheet />
+				<readonly />
+				<invisible />
+				<script>
+					function onInit()
+						super.onInit();
+						registerMenuItem(Interface.getString("menu_resetspells"), "lockvisibilityon", 8);
+					end
+					
+					function onMenuSelection(selection)
+						if selection == 8 then
+							SpellManager.resetSpells(window.getDatabaseNode());
+						end
+					end
+				</script>
+			</list_spellclass>
+		</sheetdata>
+	</windowclass>
+	<template name="number_compsavefort">
+		<number_compsave>			
+			<target>fortitude</target>			
+		</number_compsave>
+	</template>
+	<template name="number_compsaveref">
+		<number_compsave>			
+			<target>reflex</target>			
+		</number_compsave>
+	</template>
+	<template name="number_compsavewill">
+		<number_compsave>		
+			<target>will</target>		
+		</number_compsave>
+	</template>	
+	<template name="number_compsave">
+		<number_chartotal>
+			<rollable />
+			<displaysign />			
+			<script>
+				function onInit()
+					addSourceWithOp("saves." .. target[1] .. ".base", "+");
+					addSourceWithOp("saves." .. target[1] .. ".misc", "+");
+				
+					super.onInit();
+				end
+
+				function action(draginfo)
+					local rActor = ActorManager.getActor("pc", window.getDatabaseNode());
+					ActionSave.performRoll(draginfo, rActor, target[1]);
+
+					return true;
+				end
+				
+				function onDragStart(button, x, y, draginfo)
+					return action(draginfo);
+				end
+
+				function onDoubleClick(x,y)
+					return action();
+				end
+			</script>
+		</number_chartotal>		
+	</template>
+</root>
+

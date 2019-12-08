@@ -1,0 +1,1313 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charstarship_main">
+		<script file="campaign/scripts/charstarship_main.lua" />
+		<sheetdata>
+			<frame_char name="makeframe">
+				<bounds>15,5,270,45</bounds>
+			</frame_char>
+			<linkfield name="makelink">
+				<anchored to="makeframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="make" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="make">
+				<anchored to="makeframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="makelink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_make</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_make</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			
+			<frame_char name="frameframe">
+				<bounds>285,5,295,45</bounds>
+			</frame_char>
+			<linkfield name="framelink">
+				<anchored to="frameframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="frame" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="frame">
+				<anchored to="frameframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="framelink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_frame</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_frame</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="sizeframe">
+				<bounds>580,5,295,45</bounds>
+			</frame_char>
+			<charstarship_string_labeled name="size">
+				<anchored to="sizeframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="sizeframe" anchor="right" offset="-15" />
+				</anchored>
+				<labelres>charstarship_label_size</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_size</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+						
+			<frame_char name="maneuverabilityframe">
+				<bounds>15,55,200,45</bounds>
+			</frame_char>
+			<charstarship_string_labeled name="maneuverability">
+				<anchored to="maneuverabilityframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="maneuverabilityframe" anchor="right" offset="-15" />
+				</anchored>
+				<labelres>charstarship_label_maneuverability</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_maneuverability</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="speedframe">
+				<bounds>205,55,100,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="speed">
+				<anchored to="speedframe" position="insidetopleft" offset="15,6" width="60" height="33" />
+				<description textres="speed" />
+				<readonly />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_speed</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="speed" />
+				<static textres="charstarship_label_speed" />
+			</charstarship_label_fieldtop>
+			
+			<frame_char name="driftengineframe">
+				<bounds>285,55,225,45</bounds>
+			</frame_char>
+			<linkfield name="driftenginelink">
+				<anchored to="driftengineframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="driftengine" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="driftengine">
+				<anchored to="driftengineframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="driftenginelink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_driftengine</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_driftengine</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="driftratingframe">
+				<bounds>500,55,100,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="driftrating">
+				<anchored to="driftratingframe" position="insidetopleft" offset="15,6" width="60" height="33" />
+				<description textres="speed" />
+				<readonly />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_dr</textres>
+				</tooltip>				
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="driftrating" />
+				<static textres="charstarship_label_driftrating" />
+			</charstarship_label_fieldtop>
+			
+			<frame_char name="powercoreframe">
+				<bounds>580,55,165,45</bounds>
+			</frame_char>
+			<linkfield name="powercorelink">
+				<anchored to="powercoreframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="powercore" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="powercore">
+				<anchored to="powercoreframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="powercorelink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_powercore</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_powercore</textres>
+				</tooltip>	
+			</charstarship_string_labeled>
+			<frame_char name="pcuframe">
+				<bounds>735,55,130,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="pcutotal" source="pcu.total">
+				<anchored to="pcuframe" position="insidetopleft" offset="15,6" width="40" height="33" />
+				<description textres="pcutotal" />
+				<readonly />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_pcumax</textres>
+				</tooltip>	
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="pcutotal" />
+				<static textres="charstarship_label_pcutotal" />
+			</charstarship_label_fieldtop>
+			<number_dropadd name="pcucurrent" source="pcu.current">
+				<anchored to="pcuframe" position="insidetopleft" offset="65,6" width="40" height="33" />
+				<description textres="pcucurrent" />
+				<readonly />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_pcucurrent</textres>
+				</tooltip>	
+				<script>
+					function onInit()
+						updateColor();
+					end
+					
+					function onValueChanged()
+						updateColor();
+					end
+					
+					function updateColor()
+						if getValue() > window.pcutotal.getValue() then
+							setFont("charstarship-sheetnumber-red");
+						else
+							setFont("charstarship-sheetnumber");
+						end
+					end
+				</script>				
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="pcucurrent" />
+				<static textres="charstarship_label_pcucurrent" />
+			</charstarship_label_fieldtop>
+			<buttoncontrol name="button_pcupoints">
+				<anchored to="pcuframe" position="insidetopright" offset="0,10" width="20" height="20" />				
+				<state icon="button_details" pressed="button_details_down" />
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_pcusummary</textres>
+				</tooltip>
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charstarship_pcusummary", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
+			
+			<frame_char name="shieldsframe">
+				<bounds>15,100,200,45</bounds>
+			</frame_char>
+			<linkfield name="shieldslink">
+				<anchored to="shieldsframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="shields" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="shields">
+				<anchored to="shieldsframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="shieldslink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_shields</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_shields</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="shieldsspframe">
+				<bounds>205,100,100,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="shieldssp">
+				<anchored to="shieldsspframe" position="insidetopleft" offset="15,6" width="60" height="33" />
+				<description textres="shieldssp" />
+				<readonly />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>			
+				<tooltip>
+					<textres>charstarship_tooltip_shieldsp</textres>
+				</tooltip>
+			</number_dropadd>
+			
+			<frame_char name="sensorsframe">
+				<bounds>15,145,200,45</bounds>
+			</frame_char>
+			<linkfield name="sensorslink">
+				<anchored to="sensorsframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="sensors" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						onValueChanged();
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+				</script>
+			</linkfield>
+			<charstarship_string_labeled name="sensors">
+				<anchored to="sensorsframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="sensorslink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>charstarship_label_sensors</labelres>
+				<tooltip>
+					<textres>charstarship_tooltip_sensors</textres>
+				</tooltip>
+			</charstarship_string_labeled>
+			<frame_char name="sensorsmodframe">
+				<bounds>205,145,100,45</bounds>
+				<invisible />
+			</frame_char>
+			<number_dropadd name="sensorsmod">
+				<anchored to="sensorsmodframe" position="insidetopleft" offset="15,6" width="60" height="33" />
+				<description textres="sensorsmod" />
+				<readonly />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_sensorbonus</textres>
+				</tooltip>				
+			</number_dropadd>
+			
+			<genericcontrol name="arcgfx" >
+				<anchored width="150" height="150">
+					<top parent="" anchor="top" offset="185" />
+					<left parent="" anchor="left" offset="360" />
+				</anchored>
+				<icon name="charstarship_arcs" width="150" height="150" />
+				<disabled />
+			</genericcontrol>
+				
+			<charstarship_critdamageradioh name="shields_critdmg_forward">
+				<anchored width="100" height="25">
+					<top parent="arcgfx"	anchor="top" offset="-70" />
+					<left parent="arcgfx" anchor="left" offset="30" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_forward</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>
+			<charstarship_critdamageradioh name="shields_critdmg_aft">
+				<anchored width="100" height="25">
+					<top parent="arcgfx"	anchor="bottom" offset="40" />
+					<left parent="arcgfx" anchor="left" offset="30" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_aft</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>
+			<charstarship_critdamageradiov name="shields_critdmg_port">
+				<anchored width="25" height="100">
+					<top parent="arcgfx"	anchor="top" offset="45" />
+					<left parent="arcgfx" anchor="left" offset="-70" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_port</textres>
+				</tooltip>
+			</charstarship_critdamageradiov>
+			<charstarship_critdamageradiov name="shields_critdmg_starboard">
+				<anchored width="25" height="100">
+					<top parent="arcgfx"	anchor="top" offset="45" />
+					<left parent="arcgfx" anchor="right" offset="40" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_starboard</textres>
+				</tooltip>
+			</charstarship_critdamageradiov>
+
+			<charstarship_shieldnumber name="shields_forward">
+				<anchored width="104" height="59">
+					<top parent="arcgfx" anchor="top" relation="relative" offset="-43" />
+					<left parent="arcgfx" anchor="left" relation="relative" offset="21" />
+				</anchored>
+				<description textres="charstarship_label_shieldsforward" />
+				<min>0</min>
+				<nodrag />
+				<frame name="charstarship_shields_forward" offset="0,-3,0,0" />
+				<stateframe>
+					<keyedit name="charstarship_shields_forward_focus" offset="0,-3,0,0" />
+					<hover name="charstarship_shields_forward_focus" offset="0,-3,0,0" hidereadonly="true" />
+					<drophilight name="charstarship_shields_forward_focus" offset="0,-3,0,0" hidereadonly="true" />
+				</stateframe>				
+				<tooltip>
+					<textres>charstarship_tooltip_shields_forward</textres>
+				</tooltip>
+			</charstarship_shieldnumber>
+			<charstarship_shieldnumber name="shields_aft">
+				<anchored width="104" height="59">
+					<top parent="arcgfx" anchor="bottom" relation="relative" offset="-16" />
+					<left parent="arcgfx" anchor="left" relation="relative" offset="21" />
+				</anchored>
+				<description textres="charstarship_label_shieldsaft" />
+				<min>0</min>
+				<nodrag />
+				<frame name="charstarship_shields_aft" offset="0,4,0,0" />
+				<stateframe>
+					<keyedit name="charstarship_shields_aft_focus" offset="0,4,0,0" />
+					<hover name="charstarship_shields_aft_focus" offset="0,4,0,0" hidereadonly="true" />
+					<drophilight name="charstarship_shields_aft_focus" offset="0,4,0,0" hidereadonly="true" />
+				</stateframe>				
+				<tooltip>
+					<textres>charstarship_tooltip_shields_aft</textres>
+				</tooltip>
+			</charstarship_shieldnumber>			
+			<charstarship_shieldnumber name="shields_port">
+				<anchored width="59" height="105">
+					<top parent="arcgfx" anchor="top" relation="relative" offset="65" />
+					<left parent="arcgfx" anchor="left" relation="relative" offset="-42" />
+				</anchored>
+				<description textres="charstarship_label_shieldsport" />
+				<min>0</min>
+				<nodrag />
+				<frame name="charstarship_shields_port" offset="-3,0,0,0" />
+				<stateframe>
+					<keyedit name="charstarship_shields_port_focus" offset="-3,0,0,0" />
+					<hover name="charstarship_shields_port_focus" offset="-3,0,0,0" hidereadonly="true" />
+					<drophilight name="charstarship_shields_port_focus" offset="-3,0,0,0" hidereadonly="true" />
+				</stateframe>				
+				<tooltip>
+					<textres>charstarship_tooltip_shields_port</textres>
+				</tooltip>
+			</charstarship_shieldnumber>
+			<charstarship_shieldnumber name="shields_starboard">
+				<anchored width="59" height="105">
+					<top parent="arcgfx" anchor="top" relation="relative" offset="65" />
+					<left parent="arcgfx" anchor="right" relation="relative" offset="-16" />
+				</anchored>
+				<description textres="charstarship_label_shieldsstarboard" />
+				<min>0</min>
+				<nodrag />
+				<frame name="charstarship_shields_starboard" offset="5,0,0,0" />
+				<stateframe>
+					<keyedit name="charstarship_shields_starboard_focus" offset="5,0,0,0" />
+					<hover name="charstarship_shields_starboard_focus" offset="5,0,0,0" hidereadonly="true" />
+					<drophilight name="charstarship_shields_starboard_focus" offset="5,0,0,0" hidereadonly="true" />
+				</stateframe>				
+				<tooltip>
+					<textres>charstarship_tooltip_shields_starboard</textres>
+				</tooltip>
+			</charstarship_shieldnumber>
+				
+			<frame_char name="armorframe">
+				<bounds>580,100,295,250</bounds>
+			</frame_char>	
+			<number_dropadd name="actotal" source="ac.total">
+				<anchored width="45" height="33">
+					<top parent="powercoreframe" anchor="bottom" offset="40" />
+					<left parent="powercoreframe" anchor="left" offset="40" />
+				</anchored>
+				<description textres="charstarship_label_ac" />
+				<readonly />
+				<default>10</default>
+				<min>10</min>								
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_actotal</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="actotal" />
+				<static textres="charstarship_label_total" />
+				<bold />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="actotal" />
+				<static textres="charstarship_label_ac" />
+				<bold />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="acpilot" source="ac.pilot">
+				<anchored width="25" height="25">
+					<top parent="actotal" anchor="top" offset="3" />
+					<left parent="actotal" anchor="right" offset="40" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_pilotl" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_acpilot</textres>
+				</tooltip>				
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="acpilot" />
+				<static textres="charstarship_label_pilot" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="acpilot" position="left" offset="5,1"/>
+				<static textres="charstarship_label_acbasecalc" />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="acarmor" source="ac.armor">
+				<anchored width="25" height="25">
+					<top parent="acpilot" anchor="top" offset="0" />
+					<left parent="acpilot" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_armor" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_acarmor</textres>
+				</tooltip>				
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="acarmor" />
+				<static textres="charstarship_label_armor" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="acarmor" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="acsize" source="ac.size">
+				<anchored width="25" height="25">
+					<top parent="acarmor" anchor="top" offset="0" />
+					<left parent="acarmor" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_size" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_acsize</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="acsize" />
+				<static textres="charstarship_label_size" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="acsize" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" position="left" offset="5,1"/>
+			</charstarship_label_fieldleft>
+			<number_dropadd name="acmisc" source="ac.misc">
+				<anchored width="25" height="25">
+					<top parent="acsize" anchor="top" offset="0" />
+					<left parent="acsize" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_misc" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>
+				<tooltip>
+					<textres>charstarship_tooltip_acmisc</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="acmisc" />
+				<static textres="charstarship_label_misc" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="acmisc" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" position="left" offset="5,1"/>
+			</charstarship_label_fieldleft>
+			
+			<number_dropadd name="tltotal" source="tl.total">
+				<anchored width="45" height="33">
+					<top parent="actotal" anchor="bottom" offset="10" />
+					<left parent="actotal" anchor="left" offset="0" />
+				</anchored>
+				<description textres="charstarship_label_tl" />
+				<readonly />
+				<default>10</default>
+				<min>10</min>								
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_tltotal</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldleft>
+				<anchored to="tltotal" />
+				<static textres="charstarship_label_tl" />
+				<bold />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="tlpilot" source="tl.pilot">
+				<anchored width="25" height="25">
+					<top parent="tltotal" anchor="top" offset="3" />
+					<left parent="tltotal" anchor="right" offset="40" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_pilot" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_tlpilot</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="tlpilot" />
+				<static textres="charstarship_label_pilot" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="tlpilot" position="left" offset="5,1"/>
+				<static textres="charstarship_label_acbasecalc" />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="tlcountermeasures" source="tl.countermeasures">
+				<anchored width="25" height="25">
+					<top parent="tlpilot" anchor="top" offset="0" />
+					<left parent="tlpilot" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_countermeasures" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_tlcm</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="tlcountermeasures" />
+				<static textres="charstarship_label_countermeasures" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="tlcountermeasures" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="tlsize" source="tl.size">
+				<anchored width="25" height="25">
+					<top parent="tlcountermeasures" anchor="top" offset="0" />
+					<left parent="tlcountermeasures" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_size" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_tlsize</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="tlsize" />
+				<static textres="charstarship_label_size" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="tlsize" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="tlmisc" source="tl.misc">
+				<anchored width="25" height="25">
+					<top parent="tlsize" anchor="top" offset="0" />
+					<left parent="tlsize" anchor="right" offset="15" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_misc" />
+				<min>0</min>
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_tlmisc</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="tlmisc" />
+				<static textres="charstarship_label_misc" />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="tlmisc" position="left" offset="5,1"/>
+				<static textres="charstarship_label_plus" />
+			</charstarship_label_fieldleft>
+			
+			<number_dropadd name="hptotal" source="hp.total">
+				<anchored width="50" height="33">
+					<top parent="tltotal" anchor="bottom" offset="30" />
+					<left parent="tltotal" anchor="right" offset="10" />
+				</anchored>
+				<description textres="charstarship_label_hullpoints" />
+				<readonly />
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_hptotal</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="hptotal" />
+				<static textres="charstarship_label_total" />
+				<bold />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="hptotal" />
+				<static textres="charstarship_label_hullpoints" />
+				<bold />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="hpcurrent" source="hp.current">
+				<anchored width="50" height="33">
+					<top parent="hptotal" anchor="top" offset="0" />
+					<left parent="hptotal" anchor="right" offset="10" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_current" />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_hpcurrent</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="hpcurrent" />
+				<static textres="charstarship_label_current" />
+			</charstarship_label_fieldtop>
+			<number_dropadd name="hpdamage" source="hp.damage">
+				<anchored width="50" height="33">
+					<top parent="hpcurrent" anchor="top" offset="0" />
+					<left parent="hpcurrent" anchor="right" offset="10" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_damage" />
+				<min>0</min>								
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_hpdamage</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="hpdamage" />
+				<static textres="charstarship_label_damage" />
+			</charstarship_label_fieldtop>
+			
+			<number_dropadd name="dttotal" source="dt.total">
+				<anchored width="50" height="33">
+					<top parent="hptotal" anchor="bottom" offset="20" />
+					<left parent="hptotal" anchor="left" offset="0" />
+				</anchored>
+				<description textres="charstarship_label_dt" />
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_dt</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="dttotal" offset="25,0"/>
+				<static textres="charstarship_label_dt" />
+				<bold />
+			</charstarship_label_fieldtop>
+			<charstarship_label_fieldleft>
+				<anchored to="dttotal" />
+				<static textres="charstarship_label_thresholds" />
+				<bold />
+			</charstarship_label_fieldleft>
+			<number_dropadd name="cttotal" source="ct.total">
+				<anchored width="50" height="33">
+					<top parent="hptotal" anchor="bottom" offset="20" />
+					<left parent="dttotal" anchor="right" offset="10" />
+				</anchored>
+				<frame mergerule="replace" name="fieldlight" offset="7,5,7,5" />
+				<description textres="charstarship_label_ct" />
+				<font>charstarship-sheetnumber</font>	
+				<tooltip>
+					<textres>charstarship_tooltip_ct</textres>
+				</tooltip>
+			</number_dropadd>
+			<charstarship_label_fieldtop>
+				<anchored to="cttotal" offset="25,0"/>
+				<static textres="charstarship_label_ct" />
+				<bold />
+			</charstarship_label_fieldtop>
+			
+			<frame_char name="systemsframe">
+				<bounds>15,187,270,215</bounds>
+			</frame_char>
+			<charstarship_label>
+				<anchored  height="20" width="200">
+					<top parent="systemsframe" anchor="top" offset="10" />
+					<left parent="systemsframe" anchor="left" offset="15" />
+				</anchored>
+				<static textres="charstarship_label_systems" />
+				<color>#808080</color>
+			</charstarship_label>
+			<button_iedit name="systems_iedit">
+				<anchored to="systemsframe" position="righthigh" offset="-30,10" />
+				<target>systems</target>
+			</button_iedit>
+			<button_iadd name="systems_iadd">
+				<anchored to="systems_iedit" position="lefthigh" offset="5,0" />
+				<target>systems</target>
+			</button_iadd>
+			<list_text name="systems">
+				<anchored>
+					<top parent="systemsframe" anchor="top" relation="relative" offset="30"/>
+					<left parent="systemsframe" anchor="left" relation="relative" offset="5"/>
+					<right parent="systemsframe" anchor="right" relation="relative" offset="-5"/>
+					<bottom parent="systemsframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.systems</datasource>
+				<class>charstarship_systemlistentry</class>
+				<sortby><control>name</control></sortby>
+				<newfocus>name</newfocus>
+				<creatempty />
+				<allowcreate />
+				<allowdelete />
+				<tooltip>
+					<textres>charstarship_tooltip_systems</textres>
+				</tooltip>
+				<script>
+					function onDrop(x, y, draginfo)
+						local sDragType = draginfo.getType();
+						if sDragType == "string" or sDragType == "language" then
+							local w = addEntry(true);
+							w.name.setValue(draginfo.getStringData());
+							return true;
+						end
+					end
+				</script>	
+			</list_text>
+			<scrollbar>
+				<target>systems</target>
+			</scrollbar>
+			
+			<frame_char name="expansionbaysframe">
+				<bounds>15,400,270,160</bounds>
+			</frame_char>
+			<charstarship_label>
+				<anchored  height="20" width="200">
+					<top parent="expansionbaysframe" anchor="top" offset="10" />
+					<left parent="expansionbaysframe" anchor="left" offset="15" />
+				</anchored>
+				<static textres="charstarship_label_expansionbays" />
+				<color>#808080</color>
+			</charstarship_label>
+			<button_iedit name="expansionbays_iedit">
+				<anchored to="expansionbaysframe" position="righthigh" offset="-30,10" />
+				<target>expansionbays</target>
+			</button_iedit>
+			<button_iadd name="expansionbays_iadd">
+				<anchored to="expansionbays_iedit" position="lefthigh" offset="5,0" />
+				<target>expansionbays</target>
+			</button_iadd>
+			<list_text name="expansionbays">
+				<anchored>
+					<top parent="expansionbaysframe" anchor="top" relation="relative" offset="30"/>
+					<left parent="expansionbaysframe" anchor="left" relation="relative" offset="5"/>
+					<right parent="expansionbaysframe" anchor="right" relation="relative" offset="-5"/>
+					<bottom parent="expansionbaysframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.expansionbays</datasource>
+				<class>charstarship_expansionbayslistentry</class>
+				<sortby><control>name</control></sortby>
+				<newfocus>name</newfocus>
+				<creatempty />
+				<allowcreate />
+				<allowdelete />
+				<tooltip>
+					<textres>charstarship_tooltip_expbays</textres>
+				</tooltip>
+				<script>
+					function onDrop(x, y, draginfo)
+						local sDragType = draginfo.getType();
+						if sDragType == "string" or sDragType == "language" then
+							local w = addEntry(true);
+							w.name.setValue(draginfo.getStringData());
+							return true;
+						end
+					end
+				</script>	
+			</list_text>
+			<scrollbar>
+				<target>expansionbays</target>
+			</scrollbar>
+			
+			<frame_char name="modifiersframe">
+				<bounds>285,400,295,155</bounds>
+			</frame_char>
+			<charstarship_label name="modifiers_label">
+				<anchored  height="20" width="65">
+					<top parent="modifiersframe" anchor="top" offset="10" />
+					<left parent="modifiersframe" anchor="left" offset="15" />
+				</anchored>
+				<static textres="charstarship_label_modifiers" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_label name="modifierbonus_label">
+				<anchored  height="20" width="40">
+					<top parent="modifiers_label" anchor="top" offset="0" />
+					<left parent="modifiers_label" anchor="right" offset="85" />
+				</anchored>
+				<static textres="charstarship_label_modifierbonus" />
+				<color>#808080</color>
+			</charstarship_label>
+						<charstarship_label name="modifierchecks_label">
+				<anchored  height="20" width="100">
+					<top parent="modifierbonus_label" anchor="top" offset="0" />
+					<left parent="modifierbonus_label" anchor="right" offset="1" />
+				</anchored>
+				<static textres="charstarship_label_checks" />
+				<color>#808080</color>
+			</charstarship_label>
+			
+			<button_iedit name="modifiers_iedit">
+				<anchored to="modifiersframe" position="righthigh" offset="-30,10" />
+				<target>modifiers</target>
+			</button_iedit>
+			<button_iadd name="modifiers_iadd">
+				<anchored to="modifiers_iedit" position="lefthigh" offset="5,0" />
+				<target>modifiers</target>
+			</button_iadd>
+			<windowlist name="modifiers">
+				<anchored>
+					<top parent="modifiersframe" anchor="top" relation="relative" offset="30"/>
+					<left parent="modifiersframe" anchor="left" relation="relative" offset="10"/>
+					<right parent="modifiersframe" anchor="right" relation="relative" offset="-10"/>
+					<bottom parent="modifiersframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.modifiers</datasource>
+				<class>charstarship_modifierlistentry</class>
+				<child mergerule="resetandadd"></child>
+				<child><backcolor>1A40301E</backcolor></child>
+				<sortby><control>name</control></sortby>
+				<allowcreate />
+				<allowdelete />
+				<tooltip>
+					<textres>charstarship_tooltip_modifiers</textres>
+				</tooltip>
+				<script>
+					function update()
+						local sEdit = getName() .. "_iedit";
+						if window[sEdit] then
+							local bEdit = (window[sEdit].getValue() == 1);
+							for _,w in ipairs(getWindows()) do
+								w.idelete.setVisibility(bEdit);
+							end
+						end
+					end
+				
+					function onDrop(x, y, draginfo)
+						local sDragType = draginfo.getType();
+						if sDragType == "string" then
+							local w = addEntry(true);
+							w.name.setStringValue(draginfo.getStringData());
+							return true;
+						end
+					end
+					
+					function onClickDown(button, x, y)
+						if not isReadOnly() and getDatabaseNode().isOwner() then
+							return true;
+						end
+					end
+
+					function onClickRelease(button, x, y)
+						if not isReadOnly() and getDatabaseNode().isOwner() then
+							if getWindowCount() == 0 then
+								addEntry(true);
+							end
+							return true;
+						end
+					end
+
+					function addEntry(bFocus)
+						local w = createWindow();
+						return w;
+					end
+				</script>	
+			</windowlist>
+			<scrollbar>
+				<target>modifiers</target>
+			</scrollbar>
+			
+			<frame_char name="criticaldamageframe">
+				<bounds>580,350,295,205</bounds>
+			</frame_char>
+			<charstarship_label>
+				<anchored  height="20" width="200">
+					<top parent="criticaldamageframe" anchor="top" offset="10" />
+					<left parent="criticaldamageframe" anchor="left" offset="15" />
+				</anchored>
+				<static textres="charstarship_label_criticaldamage" />
+				<color>#808080</color>
+			</charstarship_label>
+			<charstarship_critdamageradioh name="critdmg_lifesupport">
+				<anchored width="100" height="25">
+					<top parent="criticaldamageframe"	anchor="top" offset="40" />
+					<left parent="criticaldamageframe" anchor="left" offset="60" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_lifesupport</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>		
+			<charstarship_label_fieldleft>
+				<anchored to="critdmg_lifesupport" />
+				<static textres="charstarship_label_cd_01-10" />
+			</charstarship_label_fieldleft>
+			<charstarship_label_fieldright>
+				<anchored to="critdmg_lifesupport" />
+				<static textres="charstarship_label_cd_lifesupport" />
+			</charstarship_label_fieldright>
+			<charstarship_critdamageradioh name="critdmg_sensors">
+				<anchored width="100" height="25">
+					<top parent="criticaldamageframe"	anchor="top" offset="70" />
+					<left parent="criticaldamageframe" anchor="left" offset="60" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_sensors</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>		
+			<charstarship_label_fieldleft>
+				<anchored to="critdmg_sensors" />
+				<static textres="charstarship_label_cd_11-30" />
+			</charstarship_label_fieldleft>
+			<charstarship_label_fieldright>
+				<anchored to="critdmg_sensors" />
+				<static textres="charstarship_label_cd_sensors" />
+			</charstarship_label_fieldright>
+			<charstarship_critdamageradioh name="critdmg_weapons">
+				<anchored width="100" height="25">
+					<top parent="criticaldamageframe"	anchor="top" offset="100" />
+					<left parent="criticaldamageframe" anchor="left" offset="60" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_weapons</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>		
+			<charstarship_label_fieldleft>
+				<anchored to="critdmg_weapons" />
+				<static textres="charstarship_label_cd_31-60" />
+			</charstarship_label_fieldleft>
+			<charstarship_label_fieldright>
+				<anchored to="critdmg_weapons" />
+				<static textres="charstarship_label_cd_weaponsarray" />
+			</charstarship_label_fieldright>
+			<charstarship_critdamageradioh name="critdmg_engines">
+				<anchored width="100" height="25">
+					<top parent="criticaldamageframe"	anchor="top" offset="130" />
+					<left parent="criticaldamageframe" anchor="left" offset="60" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_engines</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>		
+			<charstarship_label_fieldleft>
+				<anchored to="critdmg_engines" />
+				<static textres="charstarship_label_cd_61-80" />
+			</charstarship_label_fieldleft>
+			<charstarship_label_fieldright>
+				<anchored to="critdmg_engines" />
+				<static textres="charstarship_label_cd_engines" />
+			</charstarship_label_fieldright>
+			<charstarship_critdamageradioh name="critdmg_powercore">
+				<anchored width="100" height="25">
+					<top parent="criticaldamageframe"	anchor="top" offset="160" />
+					<left parent="criticaldamageframe" anchor="left" offset="60" />
+				</anchored>
+				<tooltip>
+					<textres>charstarship_tooltip_critdamage_powercore</textres>
+				</tooltip>
+			</charstarship_critdamageradioh>		
+			<charstarship_label_fieldleft>
+				<anchored to="critdmg_powercore" />
+				<static textres="charstarship_label_cd_81-100" />
+			</charstarship_label_fieldleft>
+			<charstarship_label_fieldright>
+				<anchored to="critdmg_powercore" />
+				<static textres="charstarship_label_cd_powercore" />
+			</charstarship_label_fieldright>
+			
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="charstarship_pcusummary">
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="450" height="300" />
+		</placement>
+		<sizelimits>
+			<minimum width="450" height="300" />
+			<dynamic />
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>charstarship_pcu_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+			<frame_char name="pcuframe">
+				<anchored>
+				<top parent="" anchor="top" relation="relative" offset="40" />
+				<left parent="" anchor="left" relation="relative" offset="10" />
+				<right parent="" anchor="right" relation="relative" offset="-10"/>
+				<bottom parent="" anchor="bottom" relation="relative" offset="-10" />
+			</anchored>
+			</frame_char>			
+	
+			<button_iedit name="pcusummary_iedit">
+				<anchored to="pcuframe" position="righthigh" offset="-30,10" />
+				<target>pcusummary</target>
+			</button_iedit>
+			<button_iadd name="pcusummary_iadd">
+				<anchored to="pcusummary_iedit" position="lefthigh" offset="5,0" />
+				<target>pcusummary</target>
+			</button_iadd>
+			<list_text name="pcusummary">
+				<anchored>
+					<top parent="pcuframe" anchor="top" relation="relative" offset="30"/>
+					<left parent="pcuframe" anchor="left" relation="relative" offset="5"/>
+					<right parent="pcuframe" anchor="right" relation="relative" offset="-5"/>
+					<bottom parent="pcuframe" anchor="bottom" relation="relative" offset="-5"/>
+				</anchored>
+				<datasource>.pcu.summary</datasource>
+				<class>charstarship_pcusummary_listentry</class>
+				<sortby><control>entry</control></sortby>
+				<newfocus>entry</newfocus>
+				<creatempty />
+				<allowcreate />
+				<allowdelete />
+				<script>
+					function onDrop(x, y, draginfo)
+						local sDragType = draginfo.getType();
+						if sDragType == "string" then
+							local w = addEntry(true);
+							w.name.setValue(draginfo.getStringData());
+							return true;
+						end
+					end
+					
+					function onListChanged()
+						CharStarshipManager.totalCurrentPCUPoints(window.getDatabaseNode());
+					end
+				</script>	
+			</list_text>
+			<scrollbar>
+				<target>pcusummary</target>
+			</scrollbar>
+			
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charstarship_pcusummary_listentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<button_listitem_column_delete name="idelete" />
+			<hs name="type" />
+			
+			<charstarship_number name="cost">
+				<anchored width="30" height="20">
+					<top offset="2" />
+					<right parent="idelete" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<delaykeyupdate />
+				<tabtarget prev="entry" />
+			</charstarship_number>				
+			<charstarship_string name="entry">
+				<anchored position="insidetopleft" offset="5,2" height="20">
+					<right parent="cost" anchor="left" relation="current" offset="-5" />
+				</anchored>
+			</charstarship_string>
+			
+		</sheetdata>
+	</windowclass>
+		
+	<windowclass name="charstarship_systemlistentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<link_listitem_column name="shortcut">
+				<class>starshipitem</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+
+			<charstarship_string_listitem name="name">
+				<anchored position="insidetopleft" offset="5,2" height="20" width="210" />
+				<empty textres="charstarship_empty_system" />
+				<tooltip>
+					<textres>charstarship_tooltip_systemname</textres>
+				</tooltip>
+			</charstarship_string_listitem>
+			
+			<button_charstarshipcheckbox name="status">
+				<anchored position="insidetopleft" offset="215,2" height="10" width="10" />
+			</button_charstarshipcheckbox>
+			
+			
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charstarship_expansionbayslistentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<link_listitem_column name="shortcut">
+				<class>starshipitem</class>
+			</link_listitem_column>
+			<button_listitem_column_delete name="idelete" />
+
+			<charstarship_string_listitem name="name">
+				<anchored position="insidetopleft" offset="5,2" height="20">
+					<right parent="rightanchor" anchor="left" relation="current" offset="-5" />
+				</anchored>
+				<empty textres="charstarship_empty_expansionbay" />
+				<tooltip>
+					<textres>charstarship_tooltip_expbayname</textres>
+				</tooltip>
+			</charstarship_string_listitem>
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charstarship_modifierlistentry" >
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<anchor_listitem_column_right name="rightanchor" />
+			<button_listitem_column_delete name="idelete" />
+
+			<button_charstarshipskillcycler name="name">
+				<anchored position="insidetopleft" offset="5,2" height="20" width="140" />
+				<frame name="fieldlight" offset="7,5,7,5" />
+				<script>
+					function onInit()
+						super.onInit();
+						local sLabels = "";
+						local sValues = "";
+						local aSkills = DataCommon.psskilldata;
+						for x=1, #aSkills do
+							sLabels = sLabels  .. "|" .. aSkills[x];
+							sValues = sValues .. "|" .. aSkills[x]:lower();
+						end
+						
+						initialize(sLabels, sValues, "Any Check", "any");
+						update();				
+					end
+				</script>
+			</button_charstarshipskillcycler>
+			<charstarship_number name="bonus">
+				<anchored position="insidetopleft" offset="155,2" height="20" width="25" />
+				<displaysign />
+				<tooltip>
+					<textres>charstarship_tooltip_modbonus</textres>
+				</tooltip>
+			</charstarship_number>
+			<charstarship_number name="checks">
+				<anchored position="insidetopleft" offset="190,2" height="20" width="25" />
+				<min>0</min>
+				<max>3</max>
+				<tooltip>
+					<textres>charstarship_tooltip_checksperround</textres>
+				</tooltip>
+				<script>
+					function onInit()
+						updateCheckboxes();
+					end
+					
+					function onValueChanged()
+						updateCheckboxes();
+					end
+					
+					function updateCheckboxes()
+						if getValue() == 0 then
+							window.check1.setVisible(false);	
+							window.check2.setVisible(false);	
+							window.check3.setVisible(false);	
+						elseif getValue() == 1 then
+							window.check1.setVisible(true);	
+							window.check2.setVisible(false);	
+							window.check3.setVisible(false);	
+						elseif getValue() == 2 then
+							window.check1.setVisible(true);	
+							window.check2.setVisible(true);	
+							window.check3.setVisible(false);	
+						else
+							window.check1.setVisible(true);	
+							window.check2.setVisible(true);	
+							window.check3.setVisible(true);	
+						end
+					end
+				</script>
+			</charstarship_number>
+			<button_checkbox name="check1">
+				<anchored width="10" height="20">
+					<top parent="checks" anchor="top" />
+					<left parent="checks" anchor="right" relation="relative" offset="5" />
+				</anchored> 
+				<invisible />
+			</button_checkbox>
+			<button_checkbox name="check2">
+				<anchored width="10" height="20">
+					<top parent="check1" anchor="top" />
+					<left parent="check1" anchor="right" relation="relative" offset="0" />
+				</anchored> 
+				<invisible />
+			</button_checkbox>
+			<button_checkbox name="check3">
+				<anchored width="10" height="20">
+					<top parent="check2" anchor="top" />
+					<left parent="check2" anchor="right" relation="relative" offset="0" />
+				</anchored> 
+				<invisible />
+			</button_checkbox>
+		
+		</sheetdata>
+	</windowclass>
+	
+</root>

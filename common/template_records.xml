@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="sub_note_header">
+		<subwindow>
+			<anchored>
+				<top offset="3" />
+				<left offset="15" />
+				<right offset="-15" />
+			</anchored>
+			<activate />
+			<fastinit />
+		</subwindow>
+	</template>
+	<template name="frame_record_content" mergerule="replace">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="15" />
+				<left offset="35" />
+				<right offset="-35" />
+				<bottom offset="-32" />
+			</anchored>
+			<frame name="groupbox" offset="5,3,5,3" />
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="frame_note_content">
+		<genericcontrol name="contentframe">
+			<anchored>
+				<top parent="header" anchor="bottom" offset="5" />
+				<left offset="25" />
+				<right offset="-25" />
+				<bottom offset="-50" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	
+	<template name="button_imagewindow_sizeup">
+		<button_window_sizeup>
+			<anchored position="insidetopright" offset="49,5" />
+		</button_window_sizeup>
+	</template>
+	<template name="sub_record_header_image">
+		<sub_record_header_image_step>
+			<bounds>3,1,-3,40</bounds>
+		</sub_record_header_image_step>
+	</template>
+	<template name="anchor_record_image_header_right">
+		<genericcontrol name="rightanchor">
+			<anchored height="0" width="0">
+				<top offset="5" />
+				<right offset="-69" />
+			</anchored>
+		</genericcontrol>
+	</template>
+</root>

@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="charsheet_soceity">
+		<script>			
+			
+			function onDrop(x, y, draginfo)
+				return handleDrop(draginfo, nil);
+			end
+			
+			function handleDrop(draginfo, nodeTargetList)
+				if draginfo.isType("shortcut") then
+					local sClass, sRecord = draginfo.getShortcutData();
+					if StringManager.contains({"boon"}, sClass) then
+						CharManager.addInfoDB(getDatabaseNode(), sClass, sRecord, nodeTargetList);
+						return true;
+					end
+				end
+			end
+		</script>
+		<sheetdata>
+			<frame_char name="soceitynumberframe">
+				<bounds>15,0,-29,45</bounds>
+			</frame_char>	
+			<string_labeled name="soceitynumber">
+				<anchored to="soceitynumberframe" position="insidetopleft" offset="15,10" width="100" height="20" />
+				<labelres>char_label_soceitynumber</labelres>
+			</string_labeled>
+			<string_labeled name="soceitycharnumber">
+				<anchored to="soceitynumberframe" position="insidetopleft" offset="125,10" width="70" height="20" />
+				<labelres>char_label_soceitycharnumber</labelres>
+			</string_labeled>
+			<string_labeled name="advpathnumber">
+				<anchored to="soceitynumberframe" position="insidetopleft" offset="210,10" width="260" height="20" />
+				<labelres>char_label_advpathnumber</labelres>
+			</string_labeled>
+			
+			<frame_char name="factionframe">
+				<bounds>15,40,-29,45</bounds>
+			</frame_char>
+			<string_labeled name="faction">
+				<anchored to="factionframe" position="insidetopleft" offset="15,10" width="200" height="20" />
+				<labelres>char_label_faction</labelres>
+			</string_labeled>
+			<string_labeled name="paizoemail">
+				<anchored to="factionframe" position="insidetopleft" offset="230,10" width="240" height="20" />
+				<labelres>char_label_paizoemail</labelres>
+			</string_labeled>	
+			
+			<frame_char name="downtimeframe">
+				<bounds>15,80,-29,65</bounds>
+			</frame_char>
+			<string_labeled name="downtime">
+				<anchored to="downtimeframe" position="insidetopleft" offset="15,10" width="455" height="40" />
+				<labelres>char_label_downtime</labelres>
+				<multilinespacing>20</multilinespacing>
+			</string_labeled>
+			
+			<frame_char name="currencyframe">
+				<bounds>15,140,-29,75</bounds>
+			</frame_char>
+			<string_labeled name="startingxp">
+				<anchored to="currencyframe" position="insidetopleft" offset="15,10" width="120" height="20" />
+				<labelres>char_label_startingxp</labelres>
+			</string_labeled>
+			<string_labeled name="startingfame">
+				<anchored to="currencyframe" position="insidetopleft" offset="140,10" width="120" height="20" />
+				<labelres>char_label_startingfame</labelres>
+			</string_labeled>
+			<string_labeled name="startingcredits">
+				<anchored to="currencyframe" position="insidetopleft" offset="265,10" width="205" height="20" />
+				<labelres>char_label_startingcredits</labelres>
+			</string_labeled>
+			<string_labeled name="spentxp">
+				<anchored to="currencyframe" position="insidetopleft" offset="15,40" width="120" height="20" />
+				<labelres>char_label_spentxp</labelres>
+			</string_labeled>
+			<string_labeled name="spentfame">
+				<anchored to="currencyframe" position="insidetopleft" offset="140,40" width="120" height="20" />
+				<labelres>char_label_spentfame</labelres>
+			</string_labeled>
+			<string_labeled name="spentcredits">
+				<anchored to="currencyframe" position="insidetopleft" offset="265,40" width="205" height="20" />
+				<labelres>char_label_spentcredits</labelres>
+			</string_labeled>
+			
+			<frame_char name="purchasesandexpendituresframe">
+				<bounds>15,210,-29,65</bounds>
+			</frame_char>
+			<string_labeled name="purchasesandexpenditures">
+				<anchored to="purchasesandexpendituresframe" position="insidetopleft" offset="15,10" width="455" height="40" />
+				<labelres>char_label_purchasesandexpenditures</labelres>
+				<multilinespacing>20</multilinespacing>
+			</string_labeled>
+			
+			<frame_char name="allyboonframe">
+				<bounds>15,270,161,45</bounds>
+			</frame_char>
+			<linkfield name="allyboonlink">
+				<anchored to="allyboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="allyboon" />
+				<allowdelete />
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.allyboon.setValue(nil,nil);
+						window.allyboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();						
+						if (class == "boon") then
+							setValue(class,node);
+							window.allyboon.setValue(DB.getChild(node, "name").getValue());							
+							return true;
+						end
+						return false;
+					end
+				</script>
+				<closetoggle />
+			</linkfield>
+			<string_labeled name="allyboon">
+				<anchored to="allyboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="allyboonlink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_allyboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.allyboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>
+			<frame_char name="factionboonframe">
+				<bounds>173,270,161,45</bounds>
+			</frame_char>
+			<linkfield name="factionboonlink">
+				<anchored to="factionboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="factionboon" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.factionboon.setValue(nil,nil);
+						window.factionboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							setValue(class,node);
+							window.factionboon.setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="factionboon">
+				<anchored to="factionboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="factionboonlink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_factionboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.factionboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>
+			<frame_char name="personalboonframe">
+				<bounds>332,270,162,45</bounds>
+			</frame_char>
+			<linkfield name="personalboonlink">
+				<anchored to="personalboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="personalboon" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.personalboon.setValue(nil,nil);
+						window.personalboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							setValue(class,node);
+							window.personalboon.setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="personalboon">
+				<anchored to="personalboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="personalboonlink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_personalboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.personalboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>		
+			<frame_char name="promotionalboonframe">
+				<bounds>15,310,161,45</bounds>
+			</frame_char>
+			<linkfield name="promotionalboonlink">
+				<anchored to="promotionalboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="promotionalboon" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.promotionalboon.setValue(nil,nil);
+						window.promotionalboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							setValue(class,node);
+							window.promotionalboon.setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="promotionalboon">
+				<anchored to="promotionalboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="promotionalboonlink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_promotionalboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.promotionalboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>
+			<frame_char name="socialboonframe">
+				<bounds>173,310,161,45</bounds>
+			</frame_char>
+			<linkfield name="socialboonlink">
+				<anchored to="socialboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="socialboon" />
+				<closetoggle />
+				<invisible />
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.socialboon.setValue(nil,nil);
+						window.socialboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							setValue(class,node);
+							window.socialboon.setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="socialboon">
+				<anchored to="socialboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="socialboonlink" anchor="left" offset="-5" />
+				</anchored>
+				<labelres>char_label_socialboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.socialboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>
+			<frame_char name="starshipboonframe">
+				<bounds>332,310,162,45</bounds>
+			</frame_char>
+			<linkfield name="starshipboonlink">
+				<anchored to="starshipboonframe" position="insidetopright" offset="10,10" width="20" height="20" />
+				<description field="starshipboon" />
+				<class>char_soceity_boon</class>				
+				<closetoggle />
+				<invisible />				
+				<script>
+					function onInit()
+						registerMenuItem(Interface.getString("list_menu_deleteitem"), "delete", 6);
+						registerMenuItem(Interface.getString("list_menu_deleteconfirm"), "delete", 6, 7);
+						onValueChanged();
+					end
+			
+					function onMenuSelection(selection, subselection)						
+						if selection == 6 and subselection == 7 then
+						window.starshipboon.setValue(nil,nil);
+						window.starshipboonlink.setValue(nil,nil);
+						end
+					end
+					function onValueChanged()
+						if isEmpty() then
+							setVisible(false);
+						else
+							setVisible(true);
+						end
+					end
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							setValue(class,node);
+							window.starshipboon.setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</linkfield>
+			<string_labeled name="starshipboon">
+				<anchored to="starshipboonframe" position="insidetopleft" offset="15,10" height="20">
+					<right parent="starshipboonlink" anchor="left" offset="-5" />
+				</anchored>
+				
+				<labelres>char_label_starshipboon</labelres>
+				<script>
+					function onDrop(x,y,dragdata)
+						class, node = dragdata.getShortcutData();
+						if (class == "boon") then
+							window.starshipboonlink.setValue(class,node);
+							setValue(DB.getChild(node, "name").getValue());
+							return true;
+						end
+						return false;
+					end
+				</script>
+			</string_labeled>
+			
+			<frame_char name="boonsframe">
+				<bounds>15,350,-29,150</bounds>
+			</frame_char>
+			<label_frametop>
+				<anchored to="boonsframe" />
+				<static textres="char_label_boons" />
+			</label_frametop>
+			<list_charsoceityboons name="boons">
+				<anchored to="boonsframe" />
+				<datasource>.boonlist</datasource>
+				<class>char_soceity_boon</class>				
+			</list_charsoceityboons>
+			<scrollbar>
+				<anchored to="boons" />
+				<target>boons</target>
+			</scrollbar>
+			<button_iedit name="boons_iedit">
+				<anchored to="boons" position="aboveright" offset="5,5" />
+				<target>boons</target>
+			</button_iedit>
+			<button_iadd name="boons_iadd">
+				<anchored to="boons" position="aboveleft" offset="5,5" />
+				<target>boons</target>
+			</button_iadd>		
+			
+			<genericcontrol name="leftanchor">
+				<anchored height="20">
+					<bottom offset= "-10"/>
+					<left offset= "20" />
+				</anchored>
+			</genericcontrol>			
+			<buttoncontrol name="button_society_notes">
+				<anchored to="leftanchor" position="right" offset="120" width="20"/>			
+				<state icon="button_details" pressed="button_details_down" />
+				<script>
+					function onButtonPress()
+						Interface.openWindow("charsheet_society_notes", window.getDatabaseNode());
+					end
+				</script>
+			</buttoncontrol>
+			<label name="label_button_society_notes">
+				<anchored to="leftanchor" position="right" offset="20,0" width="100"/>
+				<static textres="char_label_soceitynotes" />
+			</label>		
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="char_soceity_boon">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			<linkcontrol name="shortcut">
+				<anchored width="20" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<class>boon</class>
+				<description field="name" />
+				
+				<readonly />
+			</linkcontrol>
+			
+			<string_textlistitem name="type">
+				<anchored>
+					<top offset="2" />
+					<left offset="300" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</string_textlistitem>
+			<string_textlistitem name="name">
+				<anchored>
+					<top offset="2" />
+					<left offset="5" />
+					<right parent="type" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</string_textlistitem>
+			
+			
+		</sheetdata>
+	</windowclass>
+	<windowclass name="charsheet_society_notes">		
+		<frame>recordsheet_small</frame>
+		<placement>
+			<size width="520" height="350" />
+		</placement>
+		<sizelimits>
+			<minimum width="520" height="350" />
+			
+		</sizelimits>
+		<nodelete />
+		<playercontrol />
+		<script>
+			local bInitialized = false;
+
+			function isInitialized()
+				return bInitialized;
+			end			
+		</script>
+		<sheetdata>	
+			<windowtitlebar_char name="title">
+				<prefix>char_society_title</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor" />
+			<frame_char name="societynotesframe">
+			<anchored to="contentanchor" height="300">
+					<top anchor="bottom" relation="relative" offset="0" />
+					<left />
+					<right />
+			</anchored>
+			</frame_char>						
+			<stringu name="societynotes">
+				<anchored to="societynotesframe">
+					<top offset="30" />
+					<left offset="15" />
+					<right offset="-20" />
+					<bottom offset="-15" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</stringu>
+			<scrollbar>
+				<anchored to="societynotes" />
+				<target>societynotes</target>
+			</scrollbar>
+			
+			
+
+			
+			<close_charsheethelper />
+			<resize_charsheethelper />
+		</sheetdata>
+	</windowclass>
+</root>
