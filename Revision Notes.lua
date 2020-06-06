@@ -1,8 +1,65 @@
+
+if UPDATE FIXES AND CHANGES (REV 2.1.0)
+--[ADDED] Character Operations Manual Requirments
+--[UPDATE] Updated Class record Special Features updating. Disabled Update All function, Class records now update when record is opened.
+--[BUG] Fixed Features not updating. (I.E Envoy Improvisions).
+--[MOD] Operatives Freeskills can now be manually turned on and off via the skills edit screen.
+
+-------To FIX BEFORE Release-------------
+
+
+Verify PC Leveling works for all classes
+Fix PC Tabs
+end
+
+if UPDATE FIXES AND CHANGES (REV 2.0.0)
+	--[Enhancement] Merged Ship Combat Extension into main code. 
+end
+
+if UPDATE FIXES AND CHANGES (REV 1.2.7)
+	--[Fixed] Script Error for Creating a new Class (sClass in Class Manager)
+	--[Fixed] DR:10/magic will now be bypassed if damage type has magic (2d10 S,magic).
+	--[Fixed] Blinded effect adding additional -2.
+end
+if UPDATE FIXES AND CHANGES (REV 1.2.6)
+--[Fixed] Fixed that upgrade slots were not properly accounted for in item forge
+--[Fixed] Fixed console error when creating a new Class record
+end
+
+if UPDATE FIXES AND CHANGES (REV 1.2.5)
+--[ADDED] Requirements for Character Operations Manual added to system.
+--[BUG FIX] Fixed script error when using Archtypes button from Class window.
+--[Enhancment] FGU TTF font tags to migrate to Noto Sans in order to support extended character sets.
+--[BUG FIX] Fixed RESIST not working.
+--[BUG FIX] Fixed non-lethal damage reporting correct.
+--[BUG FIX] Fixed Status reporting when final damage was non-lethal.
+--[BUG FIX] Fixed Effect AC now adds correct (AC:2,ranged and AC:2,melee)
+--[ADDED] Added Effect EAC and KAC now adds to EAC or KAC Attack (KAC:2 or EAC:2)
+end
+if UPDATE FIXES AND CHANGES (REV 1.2.4)
+--(L)[Enhancement] Modifier buttons now show tooltips and correct cover types per CRB
+--(L)[BUG FIX] Added missing labels for add ability action menu
+--(L)[BUG FIX] Fixed Action Effect label and duration fields garbled with large text
+--(L)[BUG FIX] Removed 50 use limit from weapon charges
+--(R)[Enhancement] (Class Record)Feature and Special Feature tabs can now Drag-n-Drop to copy record
+--(L)[BUG FIX] Fixed that DR types were not applied to PC
+--(L)[BUG FIX] Fixed that nonlethal damage stabilizes (and keeps dying status)
+--(L)[BUG FIX] Fixed RP didn't decrement at end of turn if dying at start of turn
+--(L)[BUG FIX] Fixed RP decremented at exactly 1/2 total HP on second damage per turn
+--(L)[BUG FIX] Fixed intermittent problem with fatigue > SP
+--(L)[Enhancement] Added Nonlethal damage type to modifiers
+--(L)[BUG FIX] Fixed that modifier labels were not showing up on white background
+
+--COM Code Disabled
+end
+
+
 if UPDATE FIXES AND CHANGES (REV 1.2.3b)
 --[HOT FIX] Fixed a recursive error when opening a action.
 end
+
 if UPDATE FIXES AND CHANGES (REV 1.2.3a)
---[HOT FIX] Fixed Character selecet and Release issue.
+--[HOT FIX] Fixed Character select and Release issue.
 end
 if UPDATE FIXES AND CHANGES (REV 1.2.3)
 --(L)[BUG FIX] Able to heal more stamina points than you lost
