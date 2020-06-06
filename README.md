@@ -4,7 +4,7 @@ Welcome to the Starfinder RPG Fantasy Grounds Ruleset public page
 
 ## Changelog / Revision Notes
 
-
+Please view the Revision Notes.lua for a list of changes
 
 ## Want to help?
 
